@@ -14,7 +14,7 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         references: {
-          model: 'users',
+          model: 'Users',
           key: 'id',
         },
       },
@@ -25,7 +25,7 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         references: {
-          model: 'users',
+          model: 'Users',
           key: 'id',
         },
       },
@@ -55,7 +55,6 @@ module.exports = {
       }
     })
   },
-
   down: async (queryInterface, _) => {
     await queryInterface.dropTable('Sales')
   }
