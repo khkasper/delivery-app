@@ -22,8 +22,6 @@ describe('Tela Login', () => {
   beforeEach(() => render(<Login />));
 
   describe('Ao renderizar a tela de Login', () => {
-    test.todo('Deve ter o logotipo');
-
     test('Deve ter o campo de email', () => {
       const emailInput = screen.getByTestId(LOGIN_IDS.input.email);
       expect(emailInput).toBeInTheDocument();
@@ -44,18 +42,20 @@ describe('Tela Login', () => {
       expect(registerButton).toBeInTheDocument();
     });
 
-    test('A mensagem de erro deve estar oculta', () => {
+    test('A mensagem de erro não deve existir', () => {
       const errorMessage = screen.queryByTestId(LOGIN_IDS.element.invalidEmail);
-      expect(errorMessage).not.toBeVisible();
+      expect(errorMessage).not.toBeInTheDocument();
     });
 
     test('O botão de login deve estar desabilitado', () => {
       const loginButton = screen.getByTestId(LOGIN_IDS.button.login);
       expect(loginButton).toBeDisabled();
     });
+
+    test.todo('Deve ter o logotipo');
   });
 
-  describe('Ao tentar logar da página', () => {
+  describe('Ao digitar e-mail e senha', () => {
     test('o botão de login continua desabilitado ao digitar e-mail inválido', () => {
       typeLogin(invalidEmail, validPassword);
       const loginButton = screen.getByTestId(LOGIN_IDS.button.login);
