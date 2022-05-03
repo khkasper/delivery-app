@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import { loginValidate } from '../utils/validation';
@@ -37,10 +38,12 @@ function Login() {
         text="LOGIN"
         disabled={ disabled }
       />
-      <Button
-        testId="common_login__button-register"
-        text="Ainda não tenho conta"
-      />
+      <Link to="/register">
+        <Button
+          testId="common_login__button-register"
+          text="Ainda não tenho conta"
+        />
+      </Link>
       <span data-testid="common_login__element-invalid-email"> </span>
     </main>
   );
