@@ -1,15 +1,10 @@
-import React, { useEffect, useState }from "react";
+import React, { useState }from "react";
 import axios from 'axios';
 import GlobalContext from "./GlobalContext";
 
 function GlobalProvider({ children }) {
-  const [user, setUser] = useState({
-    userId: 1,
-    name: 'Gabriel',
-    email: 'gabriel@gmail.com',
-    role: 'customer',
-    token: '',
-  });
+  const [user, setUser] = useState({});
+  const [error, setError] = useState(null);
 
   const API = axios.create({
     baseURL: 'http://localhost:3001',
@@ -17,20 +12,24 @@ function GlobalProvider({ children }) {
 
   const loginUser = async ({ email, password }) => {
     try {
-      const user = await API.post('/login', { email, password });
-      console.log(user);
-      // setUser(user);
-    } catch(err) { 
-      console.log(err);
+      const { data } = await API.post('/login', { email, password });
+      setUser(data);
+    } catch(err) {
+      setError(err.response.data);
     }
   };
 
   const context = {
-    user
+    user,
+    error,
+    loginUser,
   }; 
+
   return (
     <GlobalContext.Provider value={ context }>
       {children}
     </GlobalContext.Provider>
   );
 }
+
+export default GlobalProvider;
