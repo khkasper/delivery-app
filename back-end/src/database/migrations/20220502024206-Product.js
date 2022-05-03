@@ -22,7 +22,7 @@ module.exports = {
       },
     });
   },
-  down: (queryInterface, _) => {
+  down: async (queryInterface, _) => {
     await queryInterface.dropTable('products');
   }
 };
