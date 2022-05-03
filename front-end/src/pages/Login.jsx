@@ -19,7 +19,7 @@ function Login() {
       <h1>Login</h1>
       <span>Email</span>
       <Input
-        testId="commom_login__input-email"
+        testId="common_login__input-email"
         type="email"
         name="email"
         value={ email }
