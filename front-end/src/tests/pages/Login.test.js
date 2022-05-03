@@ -10,14 +10,12 @@ const invalidEmail = 'email inválido';
 const validPassword = 'senha ok';
 const invalidPassword = '123';
 
-const tryLogin = (email, password) => {
+const typeLogin = (email, password) => {
   const emailInput = screen.getByTestId(LOGIN_IDS.input.email);
   const passwordInput = screen.getByTestId(LOGIN_IDS.input.password);
-  const loginButton = screen.getByTestId(LOGIN_IDS.button.login);
 
   userEvent.type(emailInput, email);
   userEvent.type(passwordInput, password);
-  userEvent.click(loginButton);
 };
 
 describe('Tela Login', () => {
@@ -50,25 +48,30 @@ describe('Tela Login', () => {
       const errorMessage = screen.queryByTestId(LOGIN_IDS.element.invalidEmail);
       expect(errorMessage).not.toBeVisible();
     });
+
+    test('O botão de login deve estar desabilitado', () => {
+      const loginButton = screen.getByTestId(LOGIN_IDS.button.login);
+      expect(loginButton).toBeDisabled();
+    });
   });
 
   describe('Ao tentar logar da página', () => {
-    test('deve mostrar erro ao digitar e-mail inválido', () => {
-      tryLogin(invalidEmail, validPassword);
-      const errorMessage = screen.getByTestId(LOGIN_IDS.element.invalidEmail);
-      expect(errorMessage).toBeVisible();
+    test('o botão de login continua desabilitado ao digitar e-mail inválido', () => {
+      typeLogin(invalidEmail, validPassword);
+      const loginButton = screen.getByTestId(LOGIN_IDS.button.login);
+      expect(loginButton).toBeDisabled();
     });
 
-    test('deve mostrar erro ao digitar senha inválida', () => {
-      tryLogin(validEmail, invalidPassword);
-      const errorMessage = screen.getByTestId(LOGIN_IDS.element.invalidEmail);
-      expect(errorMessage).toBeVisible();
+    test('o botão de login continua desabilitado ao digitar senha inválida', () => {
+      typeLogin(validEmail, invalidPassword);
+      const loginButton = screen.getByTestId(LOGIN_IDS.button.login);
+      expect(loginButton).toBeDisabled();
     });
 
-    test('não deve mostrar erro ao digitar dados válidos', () => {
-      tryLogin(validEmail, validPassword);
-      const errorMessage = screen.getByTestId(LOGIN_IDS.element.invalidEmail);
-      expect(errorMessage).not.toBeVisible();
+    test('o botão de login é habilitado ao digitar dados válidos', () => {
+      typeLogin(validEmail, validPassword);
+      const loginButton = screen.getByTestId(LOGIN_IDS.button.login);
+      expect(loginButton).not.toBeDisabled();
     });
   });
 });
