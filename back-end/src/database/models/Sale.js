@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     sale_date: DataTypes.DATE,
     status: DataTypes.STRING,
   }, {
-    tablename: 'Sales',
+    tableName: 'sales',
     timestamps: false,
   });
   Sale.associate = (models) => {
