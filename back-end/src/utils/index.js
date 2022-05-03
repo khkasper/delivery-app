@@ -1,3 +1,7 @@
-import JwtToken from './JwtToken';
+const JwtToken = require('./JwtToken');
+const HttpError = require('./httpError');
 
-export default JwtToken;
+module.exports = {
+  JwtToken,
+  HttpError,
+};

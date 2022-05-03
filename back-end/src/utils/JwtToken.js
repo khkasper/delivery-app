@@ -1,16 +1,12 @@
-import { readFileSync } from 'fs';
-import { sign, verify } from 'jsonwebtoken';
+const { readFileSync } = require('fs');
+const { sign, verify } = require('jsonwebtoken');
 
 const jwtSecret = readFileSync('./jwt.evaluation.key');
 const jwtConfig = { expiresIn: '1m', algorithm: 'HS256' };
 
 const JwtToken = {
-  generate(user) {
-    return sign(user, jwtSecret, jwtConfig);
-  },
-  verify(token) {
-    return verify(token, jwtSecret);
-  },
+  generate: (user) => sign(user, jwtSecret, jwtConfig),
+  verify: (token) => verify(token, jwtSecret),
 };
 
-export default JwtToken;
+module.exports = JwtToken;

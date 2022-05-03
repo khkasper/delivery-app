@@ -1,12 +1,14 @@
 const port = process.env.PORT || 3001;
-import { use, listen } from './app';
+const app = require('./app');
+const { errorHandler } = require('../middlewares');
+const { loginRouter } = require('./routes');
 
-use('/login', loginRouter);
-use('/register', registerRouter);
-use('/customer', customerRouter)
-use('/seller', sellerRouter);
-use('/admin', adminRouter)
-use(errorHandler);
+app.use('/login', loginRouter);
+// app.use('/register', registerRouter);
+// app.use('/customer', customerRouter)
+// app.use('/seller', sellerRouter);
+// app.use('/admin', adminRouter);
+app.use(errorHandler);
 
-listen(port);
+app.listen(port);
 console.log(`Api rodando na porta ${port}`);
