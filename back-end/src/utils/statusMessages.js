@@ -1,4 +1,5 @@
 module.exports = {
   invalidMailorPass: 'Invalid email or password',
   invalidToken: 'Invalid token',
+  registeredUser: 'User already registered',
 };
