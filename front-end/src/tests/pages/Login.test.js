@@ -1,9 +1,14 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import axios from 'axios';
+
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { responses, routes } from '../mocks/backend';
 import LOGIN_IDS from '../utils/selectors/common/login';
-import Login from '../../pages/Login';
+import renderWithRouter from '../utils/renderWithRouter';
+
+import App from '../../App';
 
 const validEmail = 'teste@email.com';
 const invalidEmail = 'email inválido';
@@ -18,8 +23,19 @@ const typeLogin = (email, password) => {
   userEvent.type(passwordInput, password);
 };
 
+const makeLogin = () => {
+  typeLogin(validEmail, validPassword);
+  const loginButton = screen.getByTestId(LOGIN_IDS.button.login);
+  userEvent.click(loginButton);
+};
+
 describe('Tela Login', () => {
-  beforeEach(() => render(<Login />));
+  let history;
+
+  beforeEach(() => {
+    const rendering = renderWithRouter(<App />);
+    history = rendering.history;
+  });
 
   describe('Ao renderizar a tela de Login', () => {
     test('Deve ter o campo de email', () => {
@@ -72,6 +88,41 @@ describe('Tela Login', () => {
       typeLogin(validEmail, validPassword);
       const loginButton = screen.getByTestId(LOGIN_IDS.button.login);
       expect(loginButton).not.toBeDisabled();
+    });
+  });
+
+  describe('Ao efetuar login', () => {
+    test('mostra mensagem de erro caso os dados sejam inválidos', () => {
+      axios.post = jest.fn().mockReturnValue(responses.login.notFound);
+
+      makeLogin();
+
+      const errorMessage = screen.queryByTestId(LOGIN_IDS.element.invalidEmail);
+      expect(errorMessage).toBeInTheDocument();
+    });
+
+    test('direciona para a tela de produtos caso o login seja de user', () => {
+      axios.post = jest.fn().mockReturnValue(responses.login.userOk);
+
+      makeLogin();
+
+      expect(history.location.pathname).toBe(routes.customerHome);
+    });
+
+    test('direciona para a tela de admin caso o login seja de admin', () => {
+      axios.post = jest.fn().mockReturnValue(responses.login.userOk);
+
+      makeLogin();
+
+      expect(history.location.pathname).toBe(routes.adminHome);
+    });
+
+    test('direciona para a tela de orders caso o login seja de seller', () => {
+      axios.post = jest.fn().mockReturnValue(responses.login.sellerOk);
+
+      makeLogin();
+
+      expect(history.location.pathname).toBe(routes.sellerHome);
     });
   });
 });
