@@ -58,6 +58,7 @@ function GlobalProvider({ children }) {
     loginUser,
     registerUser,
     handleLogOut,
+    HOMES,
   };
 
   return (
