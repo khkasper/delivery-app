@@ -1,0 +1,33 @@
+.navBarBody {
+  width: 100%;
+  overflow: hidden;
+  background-color: #036B52;
+}
+
+.navBarItems a{
+  float: left;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navBarItems a:hover {
+  background-color: #2FC18C;
+  color: black;
+}
+
+.navBarItems a.active {
+  background-color: #2FC18C;
+  color: black;
+}
+
+.navBarUserName {
+  float: right;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
