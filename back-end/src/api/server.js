@@ -4,6 +4,7 @@ const { errorHandler, authHandler } = require('../middlewares');
 const {
   loginRouter,
   registerRouter,
+  customerRouter,
 } = require('./routes');
 
 app.use('/login', loginRouter);

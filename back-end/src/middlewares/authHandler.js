@@ -2,7 +2,7 @@ const { JwtToken, HttpError } = require('../utils');
 const { UNAUTHORIZED } = require('../utils/statusCodes');
 const { invalidToken, tokenNotFound } = require('../utils/statusMessages');
 
-const authHandler = async (req, _res, next) => {
+module.exports = async (req, _res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization) throw new HttpError(UNAUTHORIZED, tokenNotFound);
@@ -16,5 +16,3 @@ const authHandler = async (req, _res, next) => {
 
   next();
 };
-
-module.exports = { authHandler };
