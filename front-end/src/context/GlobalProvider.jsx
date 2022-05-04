@@ -7,6 +7,7 @@ function GlobalProvider({ children }) {
   const [user, setUser] = useState({});
   const [error, setError] = useState(null);
   const [logged, setLogged] = useState(false);
+  const [orders, setOrders] = useState([]);
 
   const API = axios.create({
     baseURL: 'http://localhost:3001',
@@ -34,12 +35,23 @@ function GlobalProvider({ children }) {
     }
   };
 
+  const getOrders = async ({ token }) => {
+    try {
+      const { data } = await API.post('/customer/orders', token);
+      setOrders(data);
+    } catch (err) {
+      setError(err.response.data);
+    }
+  };
+
   const context = {
     user,
     error,
     loginUser,
     logged,
     registerUser,
+    orders,
+    getOrders,
   };
 
   return (
