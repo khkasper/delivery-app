@@ -1,6 +1,6 @@
 const port = process.env.PORT || 3001;
 const app = require('./app');
-const { errorHandler, authHandler } = require('../middlewares');
+const { errorHandler } = require('../middlewares');
 const {
   loginRouter,
   registerRouter,
@@ -9,7 +9,7 @@ const {
 
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
-app.use(authHandler);
+// app.use(authHandler);
 app.use('/customer', customerRouter);
 // app.use('/seller', sellerRouter);
 // app.use('/admin', adminRouter);

@@ -6,4 +6,10 @@ const getAll = rescue(async (_req, res) => {
   return res.status(200).json(products);
 });
 
-module.exports = { getAll };
+const getById = rescue(async (req, res) => {
+  const { id } = req.params;
+  const product = await ProductService.getById(id);
+  return res.status(200).json(product);
+});
+
+module.exports = { getAll, getById };
