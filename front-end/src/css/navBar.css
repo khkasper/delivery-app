@@ -2,9 +2,10 @@
   width: 100%;
   overflow: hidden;
   background-color: #036B52;
+  display: flex;
+  justify-content: space-between;
 }
-
-.navBarItems a{
+a {
   float: left;
   color: white;
   text-align: center;
@@ -13,12 +14,12 @@
   font-size: 17px;
 }
 
-.navBarItems a:hover {
+a:hover {
   background-color: #2FC18C;
   color: black;
 }
 
-.navBarItems a.active {
+a.active {
   background-color: #2FC18C;
   color: black;
 }
@@ -30,4 +31,19 @@
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
+  background-color: #421981;
+  height: 100%;
+}
+
+.navBarBtn {
+  float: right;
+  background-color: #056CF9; /* Green */
+  border: none;
+  color: white;
+  padding: 14px 16px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 17px;
+  height: 100%;
+  cursor: pointer;
 }

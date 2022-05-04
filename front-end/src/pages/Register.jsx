@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import { registerValidate } from '../utils/validation';
@@ -10,14 +9,12 @@ function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
-  const { registerUser, error, logged, user } = useContext(GlobalContext);
+  const { registerUser, error } = useContext(GlobalContext);
 
   useEffect(() => {
     const result = registerValidate(name, email, password);
     setDisabled(result);
   }, [name, email, password]);
-
-  if (logged) return <Navigate to={ `/${user.role}/` } />;
 
   return (
     <main className="containerLoginRegister">

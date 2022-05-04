@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import GlobalContext from '../context/GlobalContext';
@@ -9,14 +9,12 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
-  const { loginUser, error, logged, user } = useContext(GlobalContext);
+  const { loginUser, error } = useContext(GlobalContext);
 
   useEffect(() => {
     const result = loginValidate(email, password);
     setDisabled(result);
   }, [email, password]);
-
-  if (logged) return <Navigate to={ `/${user.role}/` } />;
 
   return (
     <main className="containerLoginRegister">
