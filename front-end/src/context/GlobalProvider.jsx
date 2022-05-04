@@ -56,7 +56,6 @@ function GlobalProvider({ children }) {
     user,
     error,
     loginUser,
-    logged,
     registerUser,
     handleLogOut,
   };
