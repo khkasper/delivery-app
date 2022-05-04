@@ -1,10 +1,11 @@
 import React from 'react';
-// import NavBar from '../components/NavBar';
+import NavBar from '../components/NavBar';
 
 function Products() {
   return (
-    // <NavBar role={}/>
-    <h1>Products</h1>
+    <div>
+      <NavBar />
+    </div>
   );
 }
 
