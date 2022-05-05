@@ -14,7 +14,7 @@ function GlobalProvider({ children }) {
   });
 
   const HOMES = {
-    admin: '/admin/manage',
+    administrator: '/admin/manage',
     customer: '/customer/products',
     seller: '/seller/orders',
   };

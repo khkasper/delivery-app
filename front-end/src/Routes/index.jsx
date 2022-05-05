@@ -4,6 +4,7 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Products from '../pages/Products';
 import GlobalContext from '../context/GlobalContext';
+import Admin from '../pages/Admin';
 
 function Router() {
   const { user } = useContext(GlobalContext);
@@ -16,6 +17,7 @@ function Router() {
         <>
           <Route exact path="/customer/products" element={ <Products /> } />
           <Route exact path="/seller/orders" />
+          <Route exact path="/admin/manage" element={ <Admin /> } />
         </>
       )}
       <Route exact path="*" element={ <Navigate to="/login" /> } />
