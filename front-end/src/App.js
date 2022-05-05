@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Products from './pages/Products';
 import GlobalProvider from './context/GlobalProvider';
+import Orders from './pages/Orders';
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
         <Route exact path="/customer/" element={ <Navigate to="/customer/products" /> } />
         <Route exact path="/customer/products" element={ <Products /> } />
         <Route exact path="/seller/" element={ <Navigate to="/seller/orders" /> } />
-        <Route exact path="/seller/orders" />
+        <Route exact path="/seller/orders" element={ <Orders /> } />
       </Routes>
     </GlobalProvider>
   );
