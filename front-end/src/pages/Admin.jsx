@@ -78,7 +78,7 @@ function Admin() {
         />
         {error
           && (
-            <span data-testid="common_register__element-invalid_register">
+            <span data-testid="admin_manage__element-invalid-register">
               {error.message}
             </span>
           )}
