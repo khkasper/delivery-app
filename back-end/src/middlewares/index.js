@@ -1,9 +1,11 @@
 const errorHandler = require('./errorHandler');
 const validate = require('./validate');
-const authHandler = require('./authHandler');
+const userAuthHandler = require('./userAuthHandler');
+const adminAuthHandler = require('./adminAuthHandler');
 
 module.exports = {
   errorHandler,
   validate,
-  authHandler,
+  userAuthHandler,
+  adminAuthHandler,
 };
