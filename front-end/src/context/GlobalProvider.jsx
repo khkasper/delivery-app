@@ -41,6 +41,17 @@ function GlobalProvider({ children }) {
     }
   };
 
+  const registerUsers = async ({ name, email, password, tipo }) => {
+    try {
+      const { data } = await API.post('/admin', { name, email, password, tipo });
+      setUser(data);
+      localStorage.setItem('user', JSON.stringify(data));
+      navigate(HOMES[data.role]);
+    } catch (err) {
+      setError(err.response.data);
+    }
+  };
+
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem('user'));
     setUser(currentUser);
@@ -59,6 +70,7 @@ function GlobalProvider({ children }) {
     registerUser,
     handleLogOut,
     HOMES,
+    registerUsers
   };
 
   return (

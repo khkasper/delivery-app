@@ -11,10 +11,10 @@ function Admin() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [tipo, setTipo] = useState("seller");
+  const [tipo, setTipo] = useState("");
   const [disabled, setDisabled] = useState(true);
 
-  const { error } = useContext(GlobalContext);
+  const { registerUsers, error } = useContext(GlobalContext);
 
 
   useEffect(() => {
@@ -63,7 +63,7 @@ function Admin() {
         <select
           testId="admin_manage__select-role"
           name="tipo"
-          value={tipo}
+          // value={tipo}
           handleChange={(e) => setTipo(e.target.value)}
         >
           <option value="seller">Vendedor</option>
@@ -74,7 +74,7 @@ function Admin() {
           testId="admin_manage__button-register"
           text="CADASTRAR"
           disabled={disabled}
-          handleClick={() => setDisabled(enable)}
+          handleClick={() => registerUsers({ name, email, password, tipo })}
         />
         {error
           && (
