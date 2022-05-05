@@ -1,23 +1,30 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import GlobalContext from './GlobalContext';
 
 function GlobalProvider({ children }) {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState();
   const [error, setError] = useState(null);
-  const [logged, setLogged] = useState(false);
+  const navigate = useNavigate();
 
   const API = axios.create({
     baseURL: 'http://localhost:3001',
   });
+
+  const HOMES = {
+    admin: '/admin/manage',
+    customer: '/customer/products',
+    seller: '/seller/orders',
+  };
 
   const loginUser = async ({ email, password }) => {
     try {
       const { data } = await API.post('/login', { email, password });
       setUser(data);
       localStorage.setItem('user', JSON.stringify(data));
-      setLogged(true);
+      navigate(HOMES[data.role]);
     } catch (err) {
       setError(err.response.data);
     }
@@ -28,18 +35,30 @@ function GlobalProvider({ children }) {
       const { data } = await API.post('/register', { name, email, password });
       setUser(data);
       localStorage.setItem('user', JSON.stringify(data));
-      setLogged(true);
+      navigate(HOMES[data.role]);
     } catch (err) {
       setError(err.response.data);
     }
+  };
+
+  useEffect(() => {
+    const currentUser = JSON.parse(localStorage.getItem('user'));
+    setUser(currentUser);
+  }, []);
+
+  const handleLogOut = () => {
+    localStorage.removeItem('user');
+    setUser();
+    navigate('/');
   };
 
   const context = {
     user,
     error,
     loginUser,
-    logged,
     registerUser,
+    handleLogOut,
+    HOMES,
   };
 
   return (

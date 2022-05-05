@@ -1,0 +1,50 @@
+.navBarBody {
+  background-color: hsl(166, 95%, 22%);
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  width: 100%;
+}
+
+a {
+  color: white;
+  float: left;
+  font-size: 17px;
+  padding: 14px 16px;
+  text-align: center;
+  text-decoration: none;
+}
+
+a:hover {
+  background-color: hsl(158, 61%, 47%);
+  color: black;
+}
+
+a:active {
+  background-color: hsl(158, 61%, 47%);
+  color: black;
+}
+
+.navBarUserName {
+  background-color: #421981;
+  color: white;
+  float: right;
+  font-size: 17px;
+  height: 100%;
+  padding: 14px 16px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.navBarBtn {
+  background-color: hsl(215, 96%, 50%);
+  border: none;
+  color: white;
+  cursor: pointer;
+  float: right;
+  font-size: 17px;
+  height: 100%;
+  padding: 14px 16px;
+  text-align: center;
+  text-decoration: none;
+}
