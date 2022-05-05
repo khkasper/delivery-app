@@ -1,16 +1,26 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import NavItem from "../components/NavItem";
 import Input from "../components/Input";
 import Button from '../components/Button';
+import { registerValidate } from '../utils/validation';
+import GlobalContext from '../context/GlobalContext';
 
 
 function Admin() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [tipo, setTipo] = useState("");
+  const [tipo, setTipo] = useState("seller");
   const [disabled, setDisabled] = useState(true);
+
+  const { error } = useContext(GlobalContext);
+
+
+  useEffect(() => {
+    const result = registerValidate(name, email, password);
+    setDisabled(result);
+  }, [name, email, password]);
 
   return (
     <main>
@@ -35,7 +45,7 @@ function Admin() {
         />
         <span>Email</span>
         <Input
-          testId="common_manage__input-email"
+          testId="admin_manage__input-email"
           type="email"
           name="email"
           value={email}
@@ -49,20 +59,29 @@ function Admin() {
           value={password}
           handleChange={(e) => setPassword(e.target.value)}
         />
-        <span>Tipo</span>
-        <Input
+        <span for="admin_manage__select-role">Tipo</span>
+        <select
           testId="admin_manage__select-role"
-          type="select"
           name="tipo"
           value={tipo}
           handleChange={(e) => setTipo(e.target.value)}
-        />
+        >
+          <option value="seller">Vendedor</option>
+          <option value="customer">Cliente</option>
+          <option value="admin">Administrador</option>
+        </select>
         <Button
-          testId="common_register__button-register"
+          testId="admin_manage__button-register"
           text="CADASTRAR"
           disabled={disabled}
-          handleClick={() => registerUser({ name, email, password })}
+          handleClick={() => setDisabled(enable)}
         />
+        {error
+          && (
+            <span data-testid="common_register__element-invalid_register">
+              {error.message}
+            </span>
+          )}
       </div>
     </main>
   );
