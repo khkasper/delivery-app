@@ -11,8 +11,8 @@ module.exports = async (req, _res, next) => {
 
   if (!verifiedToken) throw new HttpError(UNAUTHORIZED, invalidToken);
 
-  const { email, role } = verifiedToken;
-  req.userInfo = { email, role };
+  const { id, email, role } = verifiedToken;
+  req.userInfo = { id, email, role };
 
   next();
 };
