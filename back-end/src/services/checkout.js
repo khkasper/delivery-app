@@ -3,14 +3,13 @@ const { Sale, SaleProduct } = require('../database/models');
 const create = async (body) => {
   const { products, ...saleInfo } = body;
   const sale = await Sale.create(saleInfo);
-  console.log(sale);
   const { id } = sale;
 
-  await Promise.all(products.forEach(({ id: productId, quantity }) => (
+  const orders = await Promise.all(products.map(({ id: productId, quantity }) => (
     SaleProduct.create({ saleId: id, productId, quantity })
   )));
 
-  return { id, ...body };
+  return { id, orders };
 };
 
 module.exports = { create };

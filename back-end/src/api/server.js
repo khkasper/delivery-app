@@ -12,7 +12,6 @@ const {
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use(userAuthHandler);
-// app.use(authHandler);
 app.use('/customer', customerRouter);
 app.use('/seller', sellerRouter);
 app.use(adminAuthHandler);
