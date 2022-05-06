@@ -4,6 +4,7 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Products from '../pages/Products';
 import GlobalContext from '../context/GlobalContext';
+import Checkout from '../pages/Checkout';
 
 function Router() {
   const { user } = useContext(GlobalContext);
@@ -15,6 +16,7 @@ function Router() {
       {user && (
         <>
           <Route exact path="/customer/products" element={ <Products /> } />
+          <Route exact path="/customer/checkout" element={ <Checkout /> } />
           <Route exact path="/seller/orders" />
         </>
       )}
