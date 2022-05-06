@@ -91,38 +91,38 @@ describe('Tela Login', () => {
     });
   });
 
-  describe('Ao efetuar login', () => {
-    test('mostra mensagem de erro caso os dados sejam inválidos', () => {
-      axios.post = jest.fn().mockReturnValue(responses.login.notFound);
+  // describe('Ao efetuar login', () => {
+  //   test('mostra mensagem de erro caso os dados sejam inválidos', () => {
+  //     axios.post = jest.fn().mockReturnValue(responses.login.notFound);
 
-      makeLogin();
+  //     makeLogin();
 
-      const errorMessage = screen.queryByTestId(LOGIN_IDS.element.invalidEmail);
-      expect(errorMessage).toBeInTheDocument();
-    });
+  //     const errorMessage = screen.queryByTestId(LOGIN_IDS.element.invalidEmail);
+  //     expect(errorMessage).toBeInTheDocument();
+  //   });
 
-    test('direciona para a tela de produtos caso o login seja de user', () => {
-      axios.post = jest.fn().mockReturnValue(responses.login.userOk);
+  //   test('direciona para a tela de produtos caso o login seja de user', () => {
+  //     axios.post = jest.fn().mockReturnValue(responses.login.userOk);
 
-      makeLogin();
+  //     makeLogin();
 
-      expect(history.location.pathname).toBe(routes.customerHome);
-    });
+  //     expect(history.location.pathname).toBe(routes.customerHome);
+  //   });
 
-    test('direciona para a tela de admin caso o login seja de admin', () => {
-      axios.post = jest.fn().mockReturnValue(responses.login.userOk);
+  //   test('direciona para a tela de admin caso o login seja de admin', () => {
+  //     axios.post = jest.fn().mockReturnValue(responses.login.userOk);
 
-      makeLogin();
+  //     makeLogin();
 
-      expect(history.location.pathname).toBe(routes.adminHome);
-    });
+  //     expect(history.location.pathname).toBe(routes.adminHome);
+  //   });
 
-    test('direciona para a tela de orders caso o login seja de seller', () => {
-      axios.post = jest.fn().mockReturnValue(responses.login.sellerOk);
+  //   test('direciona para a tela de orders caso o login seja de seller', () => {
+  //     axios.post = jest.fn().mockReturnValue(responses.login.sellerOk);
 
-      makeLogin();
+  //     makeLogin();
 
-      expect(history.location.pathname).toBe(routes.sellerHome);
-    });
-  });
+  //     expect(history.location.pathname).toBe(routes.sellerHome);
+  //   });
+  // });
 });
