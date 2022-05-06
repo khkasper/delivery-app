@@ -3,8 +3,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import GlobalContext from './GlobalContext';
-import skol from '../.testImages/skol_269ml.jpg';
-import brahma from '../.testImages/brahma_600ml.jpg';
 
 function GlobalProvider({ children }) {
   const [user, setUser] = useState();
@@ -52,21 +50,7 @@ function GlobalProvider({ children }) {
 
   const getProducts = async () => {
     try {
-      // const { data } = await API.get('/products', user.token);
-      const data = [
-        {
-          id: 1,
-          name: 'Skol',
-          price: 1.99,
-          url_image: skol,
-        },
-        {
-          id: 2,
-          name: 'Brahma',
-          price: 2.99,
-          url_image: brahma,
-        },
-      ];
+      const { data } = await API.get('/customer/ products', user.token);
       setProducts(data);
     } catch (err) {
       setError(err.response.data);
