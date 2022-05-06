@@ -1,18 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import { registerValidate } from '../utils/validation';
+import GlobalContext from '../context/GlobalContext';
 
 function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
+  const { registerUser, error, HOMES, user } = useContext(GlobalContext);
 
   useEffect(() => {
     const result = registerValidate(name, email, password);
     setDisabled(result);
   }, [name, email, password]);
+
+  if (user) return <Navigate to={ HOMES[user.role] } />;
 
   return (
     <main className="containerLoginRegister">
@@ -45,8 +50,14 @@ function Register() {
         testId="common_register__button-register"
         text="CADASTRAR"
         disabled={ disabled }
+        handleClick={ () => registerUser({ name, email, password }) }
       />
-      <span data-testid="common_register__element-invalid_register"> </span>
+      { error
+        && (
+          <span data-testid="common_register__element-invalid_register">
+            {error.message}
+          </span>
+        )}
     </main>
   );
 }

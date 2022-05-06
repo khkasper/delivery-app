@@ -1,25 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, Navigate } from 'react-router-dom';
 import Button from '../components/Button';
 import Input from '../components/Input';
+import GlobalContext from '../context/GlobalContext';
 import { loginValidate } from '../utils/validation';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
+  const { loginUser, error, user, HOMES } = useContext(GlobalContext);
 
   useEffect(() => {
     const result = loginValidate(email, password);
     setDisabled(result);
   }, [email, password]);
 
+  if (user) return <Navigate to={ HOMES[user.role] } />;
+
   return (
     <main className="containerLoginRegister">
       <h1>Login</h1>
       <span>Email</span>
       <Input
-        testId="commom_login__input-email"
+        testId="common_login__input-email"
         type="email"
         name="email"
         value={ email }
@@ -37,6 +41,7 @@ function Login() {
         testId="common_login__button-login"
         text="LOGIN"
         disabled={ disabled }
+        handleClick={ () => loginUser({ email, password }) }
       />
       <Link to="/register">
         <Button
@@ -44,7 +49,9 @@ function Login() {
           text="Ainda não tenho conta"
         />
       </Link>
-      <span data-testid="common_login__element-invalid-email"> </span>
+      { error
+        && (<span data-testid="common_login__element-invalid-email">{error.message}</span>
+        ) }
     </main>
   );
 }
