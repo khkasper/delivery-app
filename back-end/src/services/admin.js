@@ -33,7 +33,6 @@ const update = async (body) => {
 const remove = async (body) => {
   const { email } = body;
   const user = await User.destroy({ where: { email } });
-  console.log(user);
   return user;
 };
 
