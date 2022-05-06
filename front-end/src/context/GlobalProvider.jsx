@@ -50,7 +50,11 @@ function GlobalProvider({ children }) {
 
   const getProducts = async () => {
     try {
-      const { data } = await API.get('/customer/ products', user.token);
+      const { data } = await API.get('/customer/products', {
+        headers: {
+          Authorization: user.token,
+        },
+      });
       setProducts(data);
     } catch (err) {
       setError(err.response.data);
@@ -59,8 +63,11 @@ function GlobalProvider({ children }) {
   };
 
   useEffect(() => {
-    const currentUser = JSON.parse(localStorage.getItem('user'));
-    setUser(currentUser);
+    const setUserLocalStorage = async () => {
+      const currentUser = await JSON.parse(localStorage.getItem('user'));
+      setUser(currentUser);
+    };
+    setUserLocalStorage();
     getProducts();
   }, []);
 

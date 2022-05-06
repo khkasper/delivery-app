@@ -12,13 +12,13 @@ function ProductCard({ product }) {
   const addItem = () => {
     setCount(count + 1);
     const newPrice = (parseFloat(totalPrice) + Number(product.price));
-    setTotalPrice((newPrice).toFixed(2));
+    setTotalPrice(newPrice);
   };
 
   const subItem = () => {
     setCount(count - 1);
     const newPrice = (parseFloat(totalPrice) - Number(product.price));
-    setTotalPrice((newPrice).toFixed(2));
+    setTotalPrice(newPrice);
   };
 
   const handleCountManualChange = ({ target }) => {
@@ -29,11 +29,11 @@ function ProductCard({ product }) {
     const newPrice = (
       parseFloat(totalPrice) + Number(itemPrice * newCount) - Number(itemPrice * oldCount)
     );
-    setTotalPrice((newPrice).toFixed(2));
+    setTotalPrice(newPrice);
   };
 
   useEffect(() => {
-    if (count === 0) setDisabled(true);
+    if (count <= 0) setDisabled(true);
     else setDisabled(false);
   }, [count]);
 
