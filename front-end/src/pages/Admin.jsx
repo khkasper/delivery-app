@@ -10,10 +10,18 @@ function Admin() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [tipo, setTipo] = useState('');
+  const [role, setRole] = useState('seller');
   const [disabled, setDisabled] = useState(true);
 
   const { registerUserAdmin, error } = useContext(GlobalContext);
+
+  const registerUser = () => {
+    registerUserAdmin({ name, email, password, role });
+    setName('');
+    setEmail('');
+    setPassword('');
+    setRole('seller');
+  };
 
   useEffect(() => {
     const result = registerValidate(name, email, password);
@@ -59,10 +67,10 @@ function Admin() {
         />
         <span htmlFor="admin_manage__select-role">Tipo</span>
         <select
-          testId="admin_manage__select-role"
-          name="tipo"
-          // value={tipo}
-          handleChange={ (e) => setTipo(e.target.value) }
+          data-testid="admin_manage__select-role"
+          name="role"
+          value={ role }
+          onChange={ (e) => setRole(e.target.value) }
         >
           <option value="seller">Vendedor</option>
           <option value="customer">Cliente</option>
@@ -72,7 +80,7 @@ function Admin() {
           testId="admin_manage__button-register"
           text="CADASTRAR"
           disabled={ disabled }
-          handleClick={ () => registerUserAdmin({ name, email, password, tipo }) }
+          handleClick={ registerUser }
         />
         {error && (
           <span data-testid="admin_manage__element-invalid-register">

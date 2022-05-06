@@ -41,12 +41,14 @@ function GlobalProvider({ children }) {
     }
   };
 
-  const registerUserAdmin = async ({ name, email, password, tipo }) => {
+  const registerUserAdmin = async ({ name, email, password, role }) => {
     try {
-      const { data } = await API.post('/manage', { name, email, password, tipo });
-      setUser(data);
-      localStorage.setItem('user', JSON.stringify(data));
-      navigate(HOMES[data.role]);
+      await API.post('/admin/manage', { name, email, password, role }, {
+        headers: {
+          Authorization: user.token,
+        },
+      });
+      navigate(HOMES[user.role]);
     } catch (err) {
       setError(err.response.data);
     }
