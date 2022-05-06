@@ -14,7 +14,7 @@ function Admin() {
   const [tipo, setTipo] = useState("");
   const [disabled, setDisabled] = useState(true);
 
-  const { registerUsers, error } = useContext(GlobalContext);
+  const { registerUserAdmin, error } = useContext(GlobalContext);
 
 
   useEffect(() => {
@@ -74,7 +74,7 @@ function Admin() {
           testId="admin_manage__button-register"
           text="CADASTRAR"
           disabled={disabled}
-          handleClick={() => registerUsers({ name, email, password, tipo })}
+          handleClick={() => registerUserAdmin({ name, email, password, tipo })}
         />
         {error
           && (

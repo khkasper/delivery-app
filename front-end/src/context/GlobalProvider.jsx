@@ -41,9 +41,9 @@ function GlobalProvider({ children }) {
     }
   };
 
-  const registerUsers = async ({ name, email, password, tipo }) => {
+  const registerUserAdmin = async ({ name, email, password, tipo }) => {
     try {
-      const { data } = await API.post('/admin', { name, email, password, tipo });
+      const { data } = await API.post('/manage', { name, email, password, tipo });
       setUser(data);
       localStorage.setItem('user', JSON.stringify(data));
       navigate(HOMES[data.role]);
@@ -70,7 +70,7 @@ function GlobalProvider({ children }) {
     registerUser,
     handleLogOut,
     HOMES,
-    registerUsers
+    registerUserAdmin,
   };
 
   return (
