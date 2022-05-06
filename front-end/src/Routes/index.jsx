@@ -1,27 +1,23 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Products from '../pages/Products';
-import GlobalContext from '../context/GlobalContext';
 import Checkout from '../pages/Checkout';
+import Orders from '../pages/Orders';
 import Admin from '../pages/Admin';
 
 function Router() {
-  const { user } = useContext(GlobalContext);
   return (
     <Routes>
       <Route exact path="/" element={ <Navigate to="/login" /> } />
       <Route exact path="/login" element={ <Login /> } />
       <Route exact path="/register" element={ <Register /> } />
-      {user && (
-        <>
-          <Route exact path="/customer/products" element={ <Products /> } />
-          <Route exact path="/customer/checkout" element={ <Checkout /> } />
-          <Route exact path="/seller/orders" />
-          <Route exact path="/admin/manage" element={ <Admin /> } />
-        </>
-      )}
+      <Route exact path="/customer/orders" element={ <Orders /> } />
+      <Route exact path="/customer/products" element={ <Products /> } />
+      <Route exact path="/customer/checkout" element={ <Checkout /> } />
+      <Route exact path="/seller/orders" element={ <Orders /> } />
+      <Route exact path="/admin/manage" element={ <Admin /> } />
       <Route exact path="*" element={ <Navigate to="/login" /> } />
     </Routes>
   );
