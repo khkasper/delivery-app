@@ -26,9 +26,9 @@ OrderItem.propTypes = {
   address: PropTypes.string.isRequired,
   addressNumber: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
-  orderId: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
-  role: PropTypes.string.string.isRequired,
+  orderId: PropTypes.number.isRequired,
+  price: PropTypes.number.isRequired,
+  role: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
   testIds: PropTypes.shape({
     address: PropTypes.string,
