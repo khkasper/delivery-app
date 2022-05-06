@@ -10,7 +10,7 @@ const getAll = rescue(async (req, res) => {
 
 const create = rescue(async (req, res) => {
   const { body, userInfo } = req;
-  const user = await AdminService.register(body, userInfo);
+  const user = await AdminService.create(body, userInfo);
   return res.status(CREATED).json(user);
 });
 
