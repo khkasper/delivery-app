@@ -3,10 +3,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import GlobalContext from './GlobalContext';
+import skol from '../.testImages/skol_269ml.jpg';
+import brahma from '../.testImages/brahma_600ml.jpg';
 
 function GlobalProvider({ children }) {
   const [user, setUser] = useState();
   const [error, setError] = useState(null);
+  const [products, setProducts] = useState([]);
   const navigate = useNavigate();
 
   const API = axios.create({
@@ -41,16 +44,41 @@ function GlobalProvider({ children }) {
     }
   };
 
-  useEffect(() => {
-    const currentUser = JSON.parse(localStorage.getItem('user'));
-    setUser(currentUser);
-  }, []);
-
   const handleLogOut = () => {
     localStorage.removeItem('user');
     setUser();
     navigate('/');
   };
+
+  const getProducts = async () => {
+    try {
+      // const { data } = await API.get('/products', user.token);
+      const data = [
+        {
+          id: 1,
+          name: 'Skol',
+          price: 1.99,
+          url_image: skol,
+        },
+        {
+          id: 2,
+          name: 'Brahma',
+          price: 2.99,
+          url_image: brahma,
+        },
+      ];
+      setProducts(data);
+    } catch (err) {
+      setError(err.response.data);
+      setProducts([]);
+    }
+  };
+
+  useEffect(() => {
+    const currentUser = JSON.parse(localStorage.getItem('user'));
+    setUser(currentUser);
+    getProducts();
+  }, []);
 
   const context = {
     user,
@@ -59,6 +87,8 @@ function GlobalProvider({ children }) {
     registerUser,
     handleLogOut,
     HOMES,
+    getProducts,
+    products,
   };
 
   return (
