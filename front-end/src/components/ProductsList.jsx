@@ -21,6 +21,7 @@ function ProductsList() {
         <Button
           text={ `Ver Carrinho: R$ ${totalPrice}` }
           disabled={ disabled }
+          testId="customer_products__button-cart"
         />
       </Link>
     </div>

@@ -39,25 +39,42 @@ function ProductCard({ product }) {
 
   return (
     <div>
-      <span>{ `R$ ${product.price}`}</span>
-      <img src={ product.url_image } alt={ product.name } width="200px" />
+      <span
+        data-testid={ `customer_products__element-card-price-${product.id}` }
+      >
+        { `R$ ${product.price}`}
+
+      </span>
+      <img
+        data-testid={ `customer_products__img-card-bg-image-${product.id}` }
+        src={ product.url_image }
+        alt={ product.name }
+        width="200px"
+      />
       <div>
-        <span>{ product.name }</span>
+        <span
+          data-testid={ `customer_products__element-card-title-${product.id}` }
+        >
+          { product.name }
+        </span>
         <div>
           <Button
-            text="+"
-            handleClick={ addItem }
+            text="-"
+            handleClick={ subItem }
+            disabled={ disabled }
+            testId={ `customer_products__button-card-rm-item-${product.id}` }
           />
           <Input
             type="number"
             name="count"
             value={ count }
             handleChange={ handleCountManualChange }
+            testId={ `customer_products__input-card-quantity-${product.id}` }
           />
           <Button
-            text="-"
-            handleClick={ subItem }
-            disabled={ disabled }
+            text="+"
+            handleClick={ addItem }
+            testId={ `customer_products__button-card-add-item-${product.id}` }
           />
         </div>
       </div>
@@ -67,6 +84,7 @@ function ProductCard({ product }) {
 
 ProductCard.propTypes = {
   product: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     url_image: PropTypes.string.isRequired,
