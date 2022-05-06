@@ -14,7 +14,7 @@ function GlobalProvider({ children }) {
   });
 
   const HOMES = {
-    admin: '/admin/manage',
+    administrator: '/admin/manage',
     customer: '/customer/products',
     seller: '/seller/orders',
   };
@@ -41,6 +41,19 @@ function GlobalProvider({ children }) {
     }
   };
 
+  const registerUserAdmin = async ({ name, email, password, role }) => {
+    try {
+      await API.post('/admin/manage', { name, email, password, role }, {
+        headers: {
+          Authorization: user.token,
+        },
+      });
+      navigate(HOMES[user.role]);
+    } catch (err) {
+      setError(err.response.data);
+    }
+  };
+
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem('user'));
     setUser(currentUser);
@@ -59,6 +72,7 @@ function GlobalProvider({ children }) {
     registerUser,
     handleLogOut,
     HOMES,
+    registerUserAdmin,
   };
 
   return (
