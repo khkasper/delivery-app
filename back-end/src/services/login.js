@@ -11,7 +11,7 @@ const login = async (email, password) => {
   if (!user) throw new HttpError(NOT_FOUND, invalidMailorPass);
 
   const { id, name, role } = user;
-  const token = JwtToken.generate({ email, role });
+  const token = JwtToken.generate({ id, email, role });
   return { id, name, email, role, token };
 };
 
