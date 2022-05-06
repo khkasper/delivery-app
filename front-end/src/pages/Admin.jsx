@@ -1,21 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
-import NavBar from "../components/NavBar";
-import NavItem from "../components/NavItem";
-import Input from "../components/Input";
+import React, { useContext, useEffect, useState } from 'react';
+import NavBar from '../components/NavBar';
+import NavItem from '../components/NavItem';
+import Input from '../components/Input';
 import Button from '../components/Button';
 import { registerValidate } from '../utils/validation';
 import GlobalContext from '../context/GlobalContext';
 
-
 function Admin() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [tipo, setTipo] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [tipo, setTipo] = useState('');
   const [disabled, setDisabled] = useState(true);
 
   const { registerUserAdmin, error } = useContext(GlobalContext);
-
 
   useEffect(() => {
     const result = registerValidate(name, email, password);
@@ -40,31 +38,31 @@ function Admin() {
           testId="admin_manage__input-name"
           type="name"
           name="name"
-          value={name}
-          handleChange={(e) => setName(e.target.value)}
+          value={ name }
+          handleChange={ (e) => setName(e.target.value) }
         />
         <span>Email</span>
         <Input
           testId="admin_manage__input-email"
           type="email"
           name="email"
-          value={email}
-          handleChange={(e) => setEmail(e.target.value)}
+          value={ email }
+          handleChange={ (e) => setEmail(e.target.value) }
         />
-        <span>Password</span>
+        <span>Senha</span>
         <Input
           testId="admin_manage__input-password"
           type="password"
           name="password"
-          value={password}
-          handleChange={(e) => setPassword(e.target.value)}
+          value={ password }
+          handleChange={ (e) => setPassword(e.target.value) }
         />
-        <span for="admin_manage__select-role">Tipo</span>
+        <span htmlFor="admin_manage__select-role">Tipo</span>
         <select
           testId="admin_manage__select-role"
           name="tipo"
           // value={tipo}
-          handleChange={(e) => setTipo(e.target.value)}
+          handleChange={ (e) => setTipo(e.target.value) }
         >
           <option value="seller">Vendedor</option>
           <option value="customer">Cliente</option>
@@ -73,15 +71,14 @@ function Admin() {
         <Button
           testId="admin_manage__button-register"
           text="CADASTRAR"
-          disabled={disabled}
-          handleClick={() => registerUserAdmin({ name, email, password, tipo })}
+          disabled={ disabled }
+          handleClick={ () => registerUserAdmin({ name, email, password, tipo }) }
         />
-        {error
-          && (
-            <span data-testid="admin_manage__element-invalid-register">
-              {error.message}
-            </span>
-          )}
+        {error && (
+          <span data-testid="admin_manage__element-invalid-register">
+            {error.message}
+          </span>
+        )}
       </div>
     </main>
   );
