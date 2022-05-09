@@ -18,10 +18,11 @@ function Button({ testId, text, handleClick, disabled, className }) {
 Button.defaultProps = {
   className: '',
   disabled: false,
+  handleClick: () => {},
 };
 
 Button.propTypes = {
-  handleClick: PropTypes.func.isRequired,
+  handleClick: PropTypes.func,
   testId: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
