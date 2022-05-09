@@ -10,7 +10,6 @@ function GlobalProvider({ children }) {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  console.log(loading);
   const API = axios.create({
     baseURL: 'http://localhost:3001',
   });
@@ -24,12 +23,10 @@ function GlobalProvider({ children }) {
   const loginUser = async ({ email, password }) => {
     try {
       setLoading(true);
-      console.log(loading, 'loading');
       const { data } = await API.post('/login', { email, password });
       setUser(data);
       localStorage.setItem('user', JSON.stringify(data));
       setLoading(false);
-      console.log(loading, 'loading');
       navigate(HOMES[data.role]);
     } catch (err) {
       setError(err.response.data);
@@ -39,12 +36,10 @@ function GlobalProvider({ children }) {
   const registerUser = async ({ name, email, password }) => {
     try {
       setLoading(true);
-      console.log(loading, 'loading');
       const { data } = await API.post('/register', { name, email, password });
       setUser(data);
       localStorage.setItem('user', JSON.stringify(data));
       setLoading(false);
-      console.log(loading, 'loading');
       navigate(HOMES[data.role]);
     } catch (err) {
       setError(err.response.data);
@@ -72,10 +67,8 @@ function GlobalProvider({ children }) {
           Authorization: currentUser.token,
         },
       });
-      console.log(result.data);
       setOrders(result.data);
     } catch (err) {
-      console.log(err);
       setError(err);
     }
   };
@@ -84,14 +77,14 @@ function GlobalProvider({ children }) {
     setLoading(true);
     const currentUser = JSON.parse(localStorage.getItem('user'));
     setUser(currentUser);
-    getOrders();
     setLoading(false);
   }, []);
 
   const handleLogOut = () => {
     setLoading(true);
-    localStorage.removeItem('user');
+    localStorage.clear();
     setUser();
+    setOrders([]);
     setLoading(false);
     navigate('/');
   };
@@ -107,6 +100,7 @@ function GlobalProvider({ children }) {
     registerUserAdmin,
     getOrders,
     orders,
+    setLoading,
   };
 
   return (

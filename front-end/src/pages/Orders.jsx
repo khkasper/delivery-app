@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import OrdersCustomer from '../components/OrdersCustomer';
 import OrdersSeller from '../components/OrdersSeller';
 import GlobalContext from '../context/GlobalContext';
 
 function Orders() {
-  const { user, loading } = useContext(GlobalContext);
+  const { user, loading, getOrders, setLoading } = useContext(GlobalContext);
 
   const dataTestIdsCustomer = {
     orderId: 'customer_orders__element-order-id-',
@@ -19,6 +19,15 @@ function Orders() {
     price: 'seller_orders__element-card-price-',
     address: 'seller_orders__element-card-address-',
   };
+
+  useEffect(() => {
+    const loadOrders = async () => {
+      setLoading(true);
+      await getOrders();
+      setLoading(false);
+    };
+    loadOrders();
+  }, []);
 
   if (loading) return <div>Carregando</div>;
 
