@@ -47,7 +47,7 @@ function ProductCard({ product }) {
       </span>
       <img
         data-testid={ `customer_products__img-card-bg-image-${product.id}` }
-        src={ product.url_image }
+        src={ product.urlImage }
         alt={ product.name }
         width="200px"
       />
@@ -84,10 +84,10 @@ function ProductCard({ product }) {
 
 ProductCard.propTypes = {
   product: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    url_image: PropTypes.string.isRequired,
+    price: PropTypes.string.isRequired,
+    urlImage: PropTypes.string.isRequired,
   }).isRequired,
 };
 

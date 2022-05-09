@@ -7,14 +7,12 @@ import Button from './Button';
 
 function ProductsList() {
   const [disabled, setDisabled] = useState(true);
-  const { products, getProducts } = useContext(GlobalContext);
+  const { products } = useContext(GlobalContext);
   const { totalPrice } = useContext(CustomerContext);
 
   useEffect(() => {
     if (totalPrice !== '0.00') setDisabled(false);
   }, [totalPrice]);
-
-  if (products.length === 0) getProducts();
 
   return (
     <div>

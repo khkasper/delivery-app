@@ -7,6 +7,7 @@ import GlobalContext from '../context/GlobalContext';
 
 function Products() {
   const { loading } = useContext(GlobalContext);
+
   if (loading) return <div>Carregando</div>;
 
   return (

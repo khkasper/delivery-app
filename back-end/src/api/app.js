@@ -7,6 +7,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+app.use('/images', express.static('public'));
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 

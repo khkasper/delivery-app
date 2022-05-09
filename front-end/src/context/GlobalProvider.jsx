@@ -122,15 +122,6 @@ function GlobalProvider({ children }) {
     }
   };
 
-  useEffect(() => {
-    setLoading(true);
-    const currentUser = JSON.parse(localStorage.getItem('user'));
-    setUser(currentUser);
-    getOrdersCustomer();
-    getOrdersSeller();
-    setLoading(false);
-  }, []);
-
   const handleLogOut = () => {
     setLoading(true);
     localStorage.removeItem('user');
@@ -140,26 +131,23 @@ function GlobalProvider({ children }) {
   };
 
   const getProducts = async () => {
-    try {
-      const { data } = await API.get('/customer/products', {
-        headers: {
-          Authorization: user.token,
-        },
-      });
-      setProducts(data);
-    } catch (err) {
-      setError(err.response.data);
-      setProducts([]);
-    }
+    const currentUser = JSON.parse(localStorage.getItem('user'));
+    const { data } = await API.get('/customer/products', {
+      headers: {
+        Authorization: currentUser.token,
+      },
+    });
+    setProducts(data);
   };
 
   useEffect(() => {
-    const setUserLocalStorage = async () => {
-      const currentUser = await JSON.parse(localStorage.getItem('user'));
-      setUser(currentUser);
-    };
-    setUserLocalStorage();
+    setLoading(true);
+    const currentUser = JSON.parse(localStorage.getItem('user'));
+    setUser(currentUser);
+    getOrdersCustomer();
+    getOrdersSeller();
     getProducts();
+    setLoading(false);
   }, []);
 
   const context = {
@@ -173,10 +161,10 @@ function GlobalProvider({ children }) {
     getOrdersSeller,
     handleLogOut,
     HOMES,
-    getProducts,
     products,
     loading,
     registerUserAdmin,
+    getProducts,
   };
 
   return (
