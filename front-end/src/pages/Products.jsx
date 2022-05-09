@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import NavBar from '../components/NavBar';
 import NavItem from '../components/NavItem';
 import ProductsList from '../components/ProductsList';
@@ -6,7 +6,16 @@ import CustomerProvider from '../context/CustomerProvider';
 import GlobalContext from '../context/GlobalContext';
 
 function Products() {
-  const { loading } = useContext(GlobalContext);
+  const { loading, getProducts, setLoading } = useContext(GlobalContext);
+
+  useEffect(() => {
+    setLoading(true);
+    const loadProducts = async () => {
+      await getProducts();
+    };
+    loadProducts();
+    setLoading(false);
+  }, []);
 
   if (loading) return <div>Carregando</div>;
 

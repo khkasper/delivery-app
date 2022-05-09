@@ -141,7 +141,7 @@ function GlobalProvider({ children }) {
     setUser(currentUser);
     getOrdersCustomer();
     getOrdersSeller();
-    getProducts();
+    // getProducts();
     setLoading(false);
   }, []);
 
@@ -159,6 +159,8 @@ function GlobalProvider({ children }) {
     products,
     loading,
     registerUserAdmin,
+    getProducts,
+    setLoading,
   };
 
   return (
