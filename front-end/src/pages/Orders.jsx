@@ -19,6 +19,7 @@ function Orders() {
     price: 'seller_orders__element-card-price-',
     address: 'seller_orders__element-card-address-',
   };
+
   if (loading) return <div>Carregando</div>;
 
   return (
