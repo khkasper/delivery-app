@@ -7,6 +7,7 @@ import GlobalContext from './GlobalContext';
 function GlobalProvider({ children }) {
   const [user, setUser] = useState();
   const [error, setError] = useState(null);
+  const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -59,6 +60,16 @@ function GlobalProvider({ children }) {
     }
   };
 
+  const getProducts = async () => {
+    const currentUser = JSON.parse(localStorage.getItem('user'));
+    const { data } = await API.get('/customer/products', {
+      headers: {
+        Authorization: currentUser.token,
+      },
+    });
+    setProducts(data);
+  };
+
   const getOrders = async () => {
     try {
       const currentUser = JSON.parse(localStorage.getItem('user'));
@@ -96,8 +107,10 @@ function GlobalProvider({ children }) {
     registerUser,
     handleLogOut,
     HOMES,
+    products,
     loading,
     registerUserAdmin,
+    getProducts,
     getOrders,
     orders,
     setLoading,

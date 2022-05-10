@@ -18,7 +18,7 @@ Input.propTypes = {
   name: PropTypes.string.isRequired,
   testId: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
 export default Input;
