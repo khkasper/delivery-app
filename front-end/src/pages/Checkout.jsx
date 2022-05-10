@@ -1,8 +1,14 @@
 import React from 'react';
+import CheckoutDetails from '../components/CheckoutDetails';
+import CheckoutList from '../components/CheckoutList';
+import CustomerProvider from '../context/CustomerProvider';
 
 function Checkout() {
   return (
-    <h1>Checkout</h1>
+    <CustomerProvider>
+      <CheckoutList />
+      <CheckoutDetails />
+    </CustomerProvider>
   );
 }
 
