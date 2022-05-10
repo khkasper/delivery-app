@@ -12,6 +12,7 @@ function ProductsList() {
 
   useEffect(() => {
     if (totalPrice !== '0.00') setDisabled(false);
+    else setDisabled(true);
   }, [totalPrice]);
 
   return (
@@ -19,11 +20,13 @@ function ProductsList() {
       { products.map((product) => <ProductCard key={ product.id } product={ product } />)}
       <Link to="/customer/checkout ">
         <Button
-          text={ `Ver Carrinho: 
-            ${parseFloat(totalPrice)
-      .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}` }
+          text="Ver Carrinho: R$ "
           disabled={ disabled }
           testId="customer_products__button-cart"
+          testId2="customer_products__checkout-bottom-value"
+          value={
+            parseFloat(totalPrice).toLocaleString('pt-BR', { minimumFractionDigits: 2 })
+          }
         />
       </Link>
     </div>

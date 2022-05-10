@@ -12,13 +12,13 @@ function ProductCard({ product }) {
   const addItem = () => {
     setCount(count + 1);
     const newPrice = (parseFloat(totalPrice) + Number(product.price));
-    setTotalPrice(newPrice);
+    setTotalPrice(newPrice.toFixed(2));
   };
 
   const subItem = () => {
     setCount(count - 1);
     const newPrice = (parseFloat(totalPrice) - Number(product.price));
-    setTotalPrice(newPrice);
+    setTotalPrice(newPrice.toFixed(2));
   };
 
   const handleCountManualChange = ({ target }) => {
@@ -29,7 +29,7 @@ function ProductCard({ product }) {
     const newPrice = (
       parseFloat(totalPrice) + Number(itemPrice * newCount) - Number(itemPrice * oldCount)
     );
-    setTotalPrice(newPrice);
+    setTotalPrice(newPrice.toFixed(2));
   };
 
   useEffect(() => {
@@ -42,14 +42,13 @@ function ProductCard({ product }) {
       <span
         data-testid={ `customer_products__element-card-price-${product.id}` }
       >
-        { `R$ ${product.price}`}
-
+        { parseFloat(product.price)
+          .toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }
       </span>
       <img
         data-testid={ `customer_products__img-card-bg-image-${product.id}` }
         src={ product.urlImage }
         alt={ product.name }
-        width="200px"
       />
       <div>
         <span
