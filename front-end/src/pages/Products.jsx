@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import NavBar from '../components/NavBar';
 import NavItem from '../components/NavItem';
+import GlobalContext from '../context/GlobalContext';
 
 function Products() {
+  const { loading } = useContext(GlobalContext);
+  if (loading) return <div>Carregando</div>;
+
   return (
     <div>
       <NavBar>

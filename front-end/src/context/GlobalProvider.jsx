@@ -7,8 +7,9 @@ import GlobalContext from './GlobalContext';
 function GlobalProvider({ children }) {
   const [user, setUser] = useState();
   const [error, setError] = useState(null);
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
   const API = axios.create({
     baseURL: 'http://localhost:3001',
   });
@@ -21,9 +22,11 @@ function GlobalProvider({ children }) {
 
   const loginUser = async ({ email, password }) => {
     try {
+      setLoading(true);
       const { data } = await API.post('/login', { email, password });
       setUser(data);
       localStorage.setItem('user', JSON.stringify(data));
+      setLoading(false);
       navigate(HOMES[data.role]);
     } catch (err) {
       setError(err.response.data);
@@ -32,9 +35,11 @@ function GlobalProvider({ children }) {
 
   const registerUser = async ({ name, email, password }) => {
     try {
+      setLoading(true);
       const { data } = await API.post('/register', { name, email, password });
       setUser(data);
       localStorage.setItem('user', JSON.stringify(data));
+      setLoading(false);
       navigate(HOMES[data.role]);
     } catch (err) {
       setError(err.response.data);
@@ -54,14 +59,33 @@ function GlobalProvider({ children }) {
     }
   };
 
+  const getOrders = async () => {
+    try {
+      const currentUser = JSON.parse(localStorage.getItem('user'));
+      const result = await API.get(`/${currentUser.role}/orders`, {
+        headers: {
+          Authorization: currentUser.token,
+        },
+      });
+      setOrders(result.data);
+    } catch (err) {
+      setError(err);
+    }
+  };
+
   useEffect(() => {
+    setLoading(true);
     const currentUser = JSON.parse(localStorage.getItem('user'));
     setUser(currentUser);
+    setLoading(false);
   }, []);
 
   const handleLogOut = () => {
-    localStorage.removeItem('user');
+    setLoading(true);
+    localStorage.clear();
     setUser();
+    setOrders([]);
+    setLoading(false);
     navigate('/');
   };
 
@@ -72,7 +96,11 @@ function GlobalProvider({ children }) {
     registerUser,
     handleLogOut,
     HOMES,
+    loading,
     registerUserAdmin,
+    getOrders,
+    orders,
+    setLoading,
   };
 
   return (
