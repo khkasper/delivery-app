@@ -37,53 +37,6 @@ function Orders() {
       && <OrdersCustomer dataTestIdsCustomer={ dataTestIdsCustomer } />}
       { user.role === 'seller'
       && <OrdersSeller dataTestIdsSeller={ dataTestIdsSeller } />}
-
-      {/* { user.role === 'customer'
-      && (
-        <NavBar>
-          <NavItem
-            to="/customer/products"
-            name="PRODUTOS"
-            testId="customer_products__element-navbar-link-products"
-          />
-          <NavItem
-            to="/customer/orders"
-            name="MEUS PEDIDOS"
-            testId="customer_products__element-navbar-link-orders"
-          />
-        </NavBar>)}
-      { user.role === 'seller'
-      && (
-        <NavBar>
-          <NavItem
-            to="/seller/orders"
-            name="PEDIDOS"
-            testId="customer_products__element-navbar-link-orders"
-          />
-        </NavBar>)}
-      {user.role === 'customer' && ordersCustomer.map((order, index) => (
-        <OrderItem
-          key={ index }
-          testIds={ dataTestIdsCustomer }
-          orderId={ order.orderId }
-          status={ order.status }
-          date={ order.date }
-          price={ order.price }
-        />
-      ))}
-      { user.role === 'seller' && ordersSeller.map((order, index) => (
-        <OrderItem
-          key={ index }
-          testIds={ dataTestIdsSeller }
-          orderId={ order.orderId }
-          status={ order.status }
-          date={ order.date }
-          price={ order.price }
-          address={ order.address }
-          addressNumber={ order.addressNumber }
-          role={ user.role }
-        />
-      ))} */}
     </main>
   );
 }
