@@ -6,7 +6,7 @@ import NavItem from './NavItem';
 import OrderItem from './OrderItem';
 
 function OrdersSeller({ dataTestIdsSeller }) {
-  const { ordersSeller, user, loading } = useContext(GlobalContext);
+  const { orders, user, loading } = useContext(GlobalContext);
   if (loading) return <div>Carregando</div>;
   return (
     <div>
@@ -18,16 +18,16 @@ function OrdersSeller({ dataTestIdsSeller }) {
         />
       </NavBar>
       {
-        ordersSeller.map((order, index) => (
+        orders.map((order, index) => (
           <OrderItem
             key={ index }
             testIds={ dataTestIdsSeller }
-            orderId={ order.orderId }
+            orderId={ order.id }
             status={ order.status }
-            date={ order.date }
-            price={ order.price }
-            address={ order.address }
-            addressNumber={ order.addressNumber }
+            date={ order.saleDate }
+            price={ order.totalPrice }
+            address={ order.deliveryAddress }
+            addressNumber={ order.deliveryNumber }
             role={ user.role }
           />
         ))

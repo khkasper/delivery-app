@@ -22,12 +22,17 @@ function OrderItem({ testIds, orderId, status, date,
   );
 }
 
+OrderItem.defaultProps = {
+  address: '',
+  addressNumber: undefined,
+};
+
 OrderItem.propTypes = {
-  address: PropTypes.string.isRequired,
-  addressNumber: PropTypes.string.isRequired,
+  address: PropTypes.string,
+  addressNumber: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   date: PropTypes.string.isRequired,
   orderId: PropTypes.number.isRequired,
-  price: PropTypes.number.isRequired,
+  price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   role: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
   testIds: PropTypes.shape({

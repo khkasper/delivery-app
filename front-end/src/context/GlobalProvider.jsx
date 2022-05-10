@@ -8,8 +8,7 @@ function GlobalProvider({ children }) {
   const [user, setUser] = useState();
   const [error, setError] = useState(null);
   const [products, setProducts] = useState([]);
-  const [ordersCustomer, setOrdersCustomer] = useState([]);
-  const [ordersSeller, setOrdersSeller] = useState([]);
+  const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const API = axios.create({
@@ -48,62 +47,6 @@ function GlobalProvider({ children }) {
     }
   };
 
-  const getOrdersCustomer = async () => {
-    setLoading(true);
-    // const { data } = await API.post('/customer/orders', token);
-    const data = [
-      {
-        orderId: 1,
-        userId: 1,
-        sellerId: 3,
-        price: 4.00,
-        address: 'Rua Teste, Bairro Teste, Cidade Teste, Estado Teste',
-        addressNumber: '123',
-        date: '05/05/2022',
-        status: 'Entregue',
-      },
-      {
-        orderId: 2,
-        userId: 1,
-        sellerId: 3,
-        price: 5.00,
-        address: 'Rua Teste2, Bairro Teste2, Cidade Teste2, Estado Teste2',
-        addresNumber: '987',
-        date: '06/05/2022',
-        status: 'Entregue',
-      },
-    ];
-    setOrdersCustomer(data);
-  };
-
-  const getOrdersSeller = async () => {
-    setLoading(true);
-    // const { data } = await API.post('/seller/orders', token);
-    const data = [
-      {
-        orderId: 1,
-        userId: 1,
-        sellerId: 3,
-        price: 4.00,
-        address: 'Rua Teste, Bairro Teste, Cidade Teste, Estado Teste',
-        addressNumber: '123',
-        date: '07/05/2022',
-        status: 'Entregue',
-      },
-      {
-        orderId: 2,
-        userId: 1,
-        sellerId: 3,
-        price: 5.00,
-        address: 'Rua Teste2, Bairro Teste2, Cidade Teste2, Estado Teste2',
-        addressNumber: '987',
-        date: '08/05/2022',
-        status: 'Entregue',
-      },
-    ];
-    setOrdersSeller(data);
-  };
-
   const registerUserAdmin = async ({ name, email, password, role }) => {
     try {
       await API.post('/admin/manage', { name, email, password, role }, {
@@ -117,14 +60,6 @@ function GlobalProvider({ children }) {
     }
   };
 
-  const handleLogOut = () => {
-    setLoading(true);
-    localStorage.removeItem('user');
-    setUser();
-    setLoading(false);
-    navigate('/');
-  };
-
   const getProducts = async () => {
     const currentUser = JSON.parse(localStorage.getItem('user'));
     const { data } = await API.get('/customer/products', {
@@ -135,29 +70,49 @@ function GlobalProvider({ children }) {
     setProducts(data);
   };
 
+  const getOrders = async () => {
+    try {
+      const currentUser = JSON.parse(localStorage.getItem('user'));
+      const result = await API.get(`/${currentUser.role}/orders`, {
+        headers: {
+          Authorization: currentUser.token,
+        },
+      });
+      setOrders(result.data);
+    } catch (err) {
+      setError(err);
+    }
+  };
+
   useEffect(() => {
     setLoading(true);
     const currentUser = JSON.parse(localStorage.getItem('user'));
     setUser(currentUser);
-    getOrdersCustomer();
-    getOrdersSeller();
-    // getProducts();
     setLoading(false);
   }, []);
+
+  const handleLogOut = () => {
+    setLoading(true);
+    localStorage.clear();
+    setUser();
+    setOrders([]);
+    setLoading(false);
+    navigate('/');
+  };
 
   const context = {
     user,
     error,
     loginUser,
     registerUser,
-    ordersCustomer,
-    ordersSeller,
     handleLogOut,
     HOMES,
     products,
     loading,
     registerUserAdmin,
     getProducts,
+    getOrders,
+    orders,
     setLoading,
   };
 

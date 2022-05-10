@@ -2,8 +2,15 @@ const rescue = require('express-rescue');
 const { SaleService } = require('../services');
 const { OK } = require('../utils/statusCodes');
 
-const getAll = rescue(async (_req, res) => {
-  const sales = await SaleService.getAll();
+const getAllByCustomerId = rescue(async (req, res) => {
+  const { userInfo } = req;
+  const sales = await SaleService.getAllByCustomerId(userInfo);
+  return res.status(OK).json(sales);
+});
+
+const getAllBySellerId = rescue(async (req, res) => {
+  const { userInfo } = req;
+  const sales = await SaleService.getAllBySellerId(userInfo);
   return res.status(OK).json(sales);
 });
 
@@ -13,4 +20,4 @@ const getById = rescue(async (req, res) => {
   return res.status(OK).json(sale);
 });
 
-module.exports = { getAll, getById };
+module.exports = { getAllByCustomerId, getAllBySellerId, getById };
