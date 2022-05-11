@@ -10,8 +10,13 @@ function OrderItem({ testIds, orderId, status, date,
         <span>Pedido</span>
         <span data-testid={ `${testIds.orderId}${orderId}` }>{ orderId }</span>
         <span data-testid={ `${testIds.status}${orderId}` }>{ status }</span>
-        <span data-testid={ `${testIds.date}${orderId}` }>{ date }</span>
-        <span data-testid={ `${testIds.price}${orderId}` }>{ price }</span>
+        <span data-testid={ `${testIds.date}${orderId}` }>
+          { new Date(date).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) }
+        </span>
+        <span data-testid={ `${testIds.price}${orderId}` }>
+          {parseFloat(price)
+            .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+        </span>
         { role === 'seller'
           && (
             <span data-testid={ `${testIds.address}${orderId}` }>

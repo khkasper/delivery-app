@@ -1,41 +1,39 @@
 import PropTypes from 'prop-types';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import CustomerContext from '../context/CustomerContext';
 import Button from './Button';
 import Input from './Input';
 
-function ProductCard({ product }) {
-  const [count, setCount] = useState(0);
-  const [disabled, setDisabled] = useState(false);
-  const { totalPrice, setTotalPrice } = useContext(CustomerContext);
+function ProductCard({ product, quantity }) {
+  const { cart, setCart } = useContext(CustomerContext);
+
+  const updateCart = (newQuantity) => {
+    console.log(typeof newQuantity);
+    const productExistInCart = cart.find((item) => product.id === item.id);
+    if (productExistInCart) {
+      const newCart = cart.reduce((acc, item) => {
+        if (product.id === item.id) {
+          if (newQuantity <= 0) return acc;
+          return [...acc, { ...product, quantity: newQuantity }];
+        }
+        return [...acc, item];
+      }, []);
+      console.log(newCart);
+      setCart(newCart);
+    } else setCart([...cart, { ...product, quantity: newQuantity }]);
+  };
 
   const addItem = () => {
-    setCount(count + 1);
-    const newPrice = (parseFloat(totalPrice) + Number(product.price));
-    setTotalPrice(newPrice.toFixed(2));
+    updateCart(quantity + 1);
   };
 
   const subItem = () => {
-    setCount(count - 1);
-    const newPrice = (parseFloat(totalPrice) - Number(product.price));
-    setTotalPrice(newPrice.toFixed(2));
+    updateCart(quantity - 1);
   };
 
   const handleCountManualChange = ({ target }) => {
-    const oldCount = count;
-    setCount(target.value);
-    const newCount = target.value;
-    const itemPrice = product.price;
-    const newPrice = (
-      parseFloat(totalPrice) + Number(itemPrice * newCount) - Number(itemPrice * oldCount)
-    );
-    setTotalPrice(newPrice.toFixed(2));
+    updateCart(Number(target.value));
   };
-
-  useEffect(() => {
-    if (count <= 0) setDisabled(true);
-    else setDisabled(false);
-  }, [count]);
 
   return (
     <div>
@@ -46,6 +44,7 @@ function ProductCard({ product }) {
           .toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }
       </span>
       <img
+        width="200px"
         data-testid={ `customer_products__img-card-bg-image-${product.id}` }
         src={ product.urlImage }
         alt={ product.name }
@@ -60,13 +59,13 @@ function ProductCard({ product }) {
           <Button
             text="-"
             handleClick={ subItem }
-            disabled={ disabled }
+            disabled={ quantity <= 0 }
             testId={ `customer_products__button-card-rm-item-${product.id}` }
           />
           <Input
             type="number"
             name="count"
-            value={ count }
+            value={ quantity }
             handleChange={ handleCountManualChange }
             testId={ `customer_products__input-card-quantity-${product.id}` }
           />
@@ -88,6 +87,7 @@ ProductCard.propTypes = {
     price: PropTypes.string.isRequired,
     urlImage: PropTypes.string.isRequired,
   }).isRequired,
+  quantity: PropTypes.number.isRequired,
 };
 
 export default ProductCard;

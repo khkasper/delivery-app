@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import CustomerContext from '../context/CustomerContext';
 import GlobalContext from '../context/GlobalContext';
@@ -6,22 +6,26 @@ import ProductCard from './ProductCard';
 import Button from './Button';
 
 function ProductsList() {
-  const [disabled, setDisabled] = useState(true);
   const { products } = useContext(GlobalContext);
-  const { totalPrice } = useContext(CustomerContext);
+  const { totalPrice, cart } = useContext(CustomerContext);
 
-  useEffect(() => {
-    if (totalPrice !== '0.00') setDisabled(false);
-    else setDisabled(true);
-  }, [totalPrice]);
+  const getCartQuantity = (productId) => {
+    const product = cart.find(({ id }) => (id === productId));
+    return product ? product.quantity : 0;
+  };
 
   return (
     <div>
-      { products.map((product) => <ProductCard key={ product.id } product={ product } />)}
+      { products.map((product) => (
+        <ProductCard
+          key={ product.id }
+          product={ product }
+          quantity={ getCartQuantity(product.id) }
+        />))}
       <Link to="/customer/checkout ">
         <Button
           text="Ver Carrinho: R$ "
-          disabled={ disabled }
+          disabled={ cart.length === 0 }
           testId="customer_products__button-cart"
           testId2="customer_products__checkout-bottom-value"
           value={
