@@ -1,10 +1,24 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
+import CustomerContext from '../context/CustomerContext';
 import Button from './Button';
 
 function CheckoutItem({ cartItem, index }) {
   const { name, price, quantity } = cartItem;
+  const { cart, setCart } = useContext(CustomerContext);
+
   const subtotal = () => (Number(price) * quantity);
+
+  const remove = () => {
+    const newCart = cart.reduce((acc, item) => {
+      if (cartItem.id === item.id) {
+        return acc;
+      }
+      return [...acc, item];
+    }, []);
+    console.log(newCart);
+    setCart(newCart);
+  };
 
   return (
     <tr>
@@ -37,6 +51,7 @@ function CheckoutItem({ cartItem, index }) {
         <Button
           testId={ `customer_checkout__element-order-table-remove-${index}` }
           text="REMOVER"
+          handleClick={ remove }
         />
       </td>
     </tr>
@@ -45,6 +60,7 @@ function CheckoutItem({ cartItem, index }) {
 
 CheckoutItem.propTypes = {
   cartItem: PropTypes.shape({
+    id: PropTypes.number,
     name: PropTypes.string.isRequired,
     price: PropTypes.string.isRequired,
     quantity: PropTypes.number.isRequired,

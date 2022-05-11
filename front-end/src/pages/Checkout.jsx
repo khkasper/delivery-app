@@ -1,11 +1,39 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import NavBar from '../components/NavBar';
+import NavItem from '../components/NavItem';
 import CheckoutDetails from '../components/CheckoutDetails';
 import CheckoutList from '../components/CheckoutList';
 import CustomerProvider from '../context/CustomerProvider';
+import GlobalContext from '../context/GlobalContext';
 
 function Checkout() {
+  const { setLoading, getSellers, loading } = useContext(GlobalContext);
+
+  useEffect(() => {
+    setLoading(true);
+    const loadSellers = async () => {
+      await getSellers();
+    };
+    loadSellers();
+    setLoading(false);
+  }, []);
+
+  if (loading) return <div>Carregando</div>;
+
   return (
     <CustomerProvider>
+      <NavBar>
+        <NavItem
+          to="/customer/products"
+          name="PRODUTOS"
+          testId="customer_products__element-navbar-link-products"
+        />
+        <NavItem
+          to="/customer/orders"
+          name="MEUS PEDIDOS"
+          testId="customer_products__element-navbar-link-orders"
+        />
+      </NavBar>
       <CheckoutList />
       <CheckoutDetails />
     </CustomerProvider>

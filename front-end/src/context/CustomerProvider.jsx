@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import CustomerContext from './CustomerContext';
 
 function CustomerProvider({ children }) {
@@ -11,6 +12,10 @@ function CustomerProvider({ children }) {
     return [];
   };
   const [cart, setCart] = useState(loadCart());
+  const [saleInfo, setSaleInfo] = useState({});
+  const API = axios.create({
+    baseURL: 'http://localhost:3001',
+  });
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -19,10 +24,30 @@ function CustomerProvider({ children }) {
     ), 0));
   }, [cart]);
 
+  const checkout = async () => {
+    try {
+      const currentUser = JSON.parse(localStorage.getItem('user'));
+      const result = await API.get(
+        '/customer/checkout',
+        { cart, saleInfo },
+        {
+          headers: {
+            Authorization: currentUser.token,
+          },
+        },
+      );
+      console.log(result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const context = {
     totalPrice,
     cart,
     setCart,
+    checkout,
+    setSaleInfo,
   };
 
   return (

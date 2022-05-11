@@ -7,7 +7,6 @@ function CheckoutList() {
 
   return (
     <div>
-      <span>CheckoutList</span>
       <table>
         <thead>
           <tr>

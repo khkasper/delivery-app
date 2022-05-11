@@ -10,6 +10,7 @@ function GlobalProvider({ children }) {
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [sellers, setSellers] = useState([]);
   const navigate = useNavigate();
   const API = axios.create({
     baseURL: 'http://localhost:3001',
@@ -84,6 +85,21 @@ function GlobalProvider({ children }) {
     }
   };
 
+  const getSellers = async () => {
+    try {
+      const currentUser = JSON.parse(localStorage.getItem('user'));
+      const result = await API.get('/seller/', {
+        headers: {
+          Authorization: currentUser.token,
+        },
+      });
+      console.log(result);
+      setSellers(result.data);
+    } catch (err) {
+      setError(err);
+    }
+  };
+
   useEffect(() => {
     setLoading(true);
     const currentUser = JSON.parse(localStorage.getItem('user'));
@@ -114,6 +130,8 @@ function GlobalProvider({ children }) {
     getOrders,
     orders,
     setLoading,
+    sellers,
+    getSellers,
   };
 
   return (

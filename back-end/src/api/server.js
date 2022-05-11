@@ -14,6 +14,7 @@ app.use('/register', registerRouter);
 app.use(userAuthHandler);
 app.use('/customer', customerRouter);
 app.use('/seller', sellerRouter);
+app.use(adminAuthHandler);
 app.use('/admin', adminRouter);
 app.use(errorHandler);
 
