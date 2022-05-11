@@ -15,8 +15,8 @@ const getAll = async ({ email }) => {
 
 const create = async (body, userInfo) => {
   const { name, email, password, role } = body;
-  const { email: adminEmail } = userInfo;
-  const { role: adminRole } = User.findOne({ where: { adminEmail } });
+  const adminEmail = userInfo.email;
+  const { role: adminRole } = await User.findOne({ where: { email: adminEmail } });
 
   if (adminRole !== 'administrator') throw new HttpError(UNAUTHORIZED, invalidUser);
 
@@ -32,7 +32,7 @@ const create = async (body, userInfo) => {
 const update = async (body, userInfo) => {
   const { name, email, password, role } = body;
   const { email: adminEmail } = userInfo;
-  const { role: adminRole } = User.findOne({ where: { adminEmail } });
+  const { role: adminRole } = await User.findOne({ where: { email: adminEmail } });
 
   if (adminRole !== 'administrator') throw new HttpError(UNAUTHORIZED, invalidUser);
 
@@ -47,7 +47,7 @@ const update = async (body, userInfo) => {
 const remove = async (body, userInfo) => {
   const { email } = body;
   const { email: adminEmail } = userInfo;
-  const { role: adminRole } = User.findOne({ where: { adminEmail } });
+  const { role: adminRole } = await User.findOne({ where: { email: adminEmail } });
 
   if (adminRole !== 'administrator') throw new HttpError(UNAUTHORIZED, invalidUser);
 

@@ -13,7 +13,7 @@ const create = async (name, email, password) => {
   const newUser = await User.create({ name, email, password: encryptedPass, role: 'customer' });
   const { id, role } = newUser;
   const token = JwtToken.generate({ id, email, role });
-  return { ...newUser, token };
+  return { ...newUser.dataValues, token };
 };
 
 module.exports = { create };
