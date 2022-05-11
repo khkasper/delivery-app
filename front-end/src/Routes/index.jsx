@@ -19,6 +19,7 @@ function Router() {
       <Route exact path="/customer/products" element={ <Products /> } />
       <Route exact path="/customer/checkout" element={ <Checkout /> } />
       <Route exact path="/seller/orders" element={ <Orders /> } />
+      <Route exact path="/seller/orders/:id" element={ <OrderDetails /> } />
       <Route exact path="/admin/manage" element={ <Admin /> } />
       <Route exact path="*" element={ <Navigate to="/login" /> } />
     </Routes>
