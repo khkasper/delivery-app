@@ -28,7 +28,8 @@ function CheckoutList() {
         <span
           data-testid="customer_checkout__element-order-total-price"
         >
-          {totalPrice}
+          {parseFloat(totalPrice)
+            .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
         </span>
       </div>
     </div>

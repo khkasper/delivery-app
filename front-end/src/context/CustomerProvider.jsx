@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import CustomerContext from './CustomerContext';
 
@@ -12,6 +13,8 @@ function CustomerProvider({ children }) {
     return [];
   };
   const [cart, setCart] = useState(loadCart());
+  const navigate = useNavigate();
+
   const API = axios.create({
     baseURL: 'http://localhost:3001',
   });
@@ -26,18 +29,24 @@ function CustomerProvider({ children }) {
   const checkout = async (saleInfo) => {
     try {
       const currentUser = JSON.parse(localStorage.getItem('user'));
-      const result = await API.post(
+      console.log(currentUser);
+      const { data } = await API.post(
         '/customer/checkout',
         { products: cart,
           saleInfo: {
-            ...saleInfo, totalPrice, userId: currentUser.id, status: 'Pendente', saleDate: '2020-05-05T00:00:00.0000' } },
+            ...saleInfo,
+            totalPrice,
+            userId: currentUser.id,
+            status: 'Pendente',
+            saleDate: new Date() } },
         {
           headers: {
             Authorization: currentUser.token,
           },
         },
       );
-      console.log(result);
+      setCart([]);
+      navigate(`/customer/orders/${data.id}`);
     } catch (err) {
       console.log(err);
     }

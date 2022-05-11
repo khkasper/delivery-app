@@ -40,12 +40,14 @@ function CheckoutItem({ cartItem, index }) {
       <td
         data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }
       >
-        {price}
+        {parseFloat(price)
+          .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
       </td>
       <td
         data-testid={ `customer_checkout__element-order-table-sub-total-${index}` }
       >
-        {subtotal()}
+        {parseFloat(subtotal())
+          .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
       </td>
       <td>
         <Button
