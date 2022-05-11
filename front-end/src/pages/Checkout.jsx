@@ -10,12 +10,12 @@ function Checkout() {
   const { setLoading, getSellers, loading } = useContext(GlobalContext);
 
   useEffect(() => {
-    setLoading(true);
     const loadSellers = async () => {
+      setLoading(true);
       await getSellers();
+      setLoading(false);
     };
     loadSellers();
-    setLoading(false);
   }, []);
 
   if (loading) return <div>Carregando</div>;

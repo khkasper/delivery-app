@@ -12,7 +12,6 @@ function CustomerProvider({ children }) {
     return [];
   };
   const [cart, setCart] = useState(loadCart());
-  const [saleInfo, setSaleInfo] = useState({});
   const API = axios.create({
     baseURL: 'http://localhost:3001',
   });
@@ -24,12 +23,14 @@ function CustomerProvider({ children }) {
     ), 0));
   }, [cart]);
 
-  const checkout = async () => {
+  const checkout = async (saleInfo) => {
     try {
       const currentUser = JSON.parse(localStorage.getItem('user'));
-      const result = await API.get(
+      const result = await API.post(
         '/customer/checkout',
-        { cart, saleInfo },
+        { products: cart,
+          saleInfo: {
+            ...saleInfo, totalPrice, userId: currentUser.id, status: 'Pendente', saleDate: '2020-05-05T00:00:00.0000' } },
         {
           headers: {
             Authorization: currentUser.token,
@@ -47,7 +48,6 @@ function CustomerProvider({ children }) {
     cart,
     setCart,
     checkout,
-    setSaleInfo,
   };
 
   return (
