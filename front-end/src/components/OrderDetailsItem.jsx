@@ -1,36 +1,48 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
+import GlobalContext from '../context/GlobalContext';
 
 function OrderDetailstItem({ product, index }) {
+  const { user } = useContext(GlobalContext);
   const { name, price, SaleProduct: { quantity } } = product;
 
   const subtotal = () => (Number(price) * quantity);
 
-  return ( 
+  return (
     <tr>
       <td
-        data-testid={ `customer_order_details__element-order-table-item-number-${index}` }
+        data-testid={
+          `${user.role}_order_details__element-order-table-item-number-${index}`
+        }
       >
         {index + 1}
       </td>
       <td
-        data-testid={ `customer_order_details__element-order-table-name-${index}` }
+        data-testid={
+          `${user.role}_order_details__element-order-table-name-${index}`
+        }
       >
         {name}
       </td>
       <td
-        data-testid={ `customer_order_details__element-order-table-quantity-${index}` }
+        data-testid={
+          `${user.role}_order_details__element-order-table-quantity-${index}`
+        }
       >
         {quantity}
       </td>
       <td
-        data-testid={ `customer_order_details__element-order-table-unit-price-${index}` }
+        data-testid={
+          `${user.role}_order_details__element-order-table-unit-price-${index}`
+        }
       >
         {parseFloat(price)
           .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
       </td>
       <td
-        data-testid={ `customer_order_details__element-order-table-sub-total-${index}` }
+        data-testid={
+          `${user.role}_order_details__element-order-table-sub-total-${index}`
+        }
       >
         {parseFloat(subtotal())
           .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}

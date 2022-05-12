@@ -3,7 +3,7 @@ import GlobalContext from '../context/GlobalContext';
 import OrderDetailsItem from './OrderDetailsItem';
 
 function OrderDetailsList() {
-  const { currentOrder } = useContext(GlobalContext);
+  const { currentOrder, user } = useContext(GlobalContext);
 
   if (!currentOrder) return <div>Carregando</div>;
 
@@ -27,7 +27,7 @@ function OrderDetailsList() {
       </table>
       <div>
         <span
-          data-testid="customer_order_details__element-order-total-price"
+          data-testid={ `${user.role}_order_details__element-order-total-price` }
         >
           {parseFloat(currentOrder.totalPrice)
             .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}

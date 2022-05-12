@@ -1,7 +1,8 @@
 import React from 'react';
-import NavBar from '../components/NavBar';
-import NavItem from '../components/NavItem';
-import OrderDetailsList from '../components/OrderDetailsList';
+import NavBar from './NavBar';
+import NavItem from './NavItem';
+import OrderDetailsList from './OrderDetailsList';
+import OrderStatusBar from './OrderStatusBar';
 
 function OrderCustomerDetails() {
   return (
@@ -18,6 +19,7 @@ function OrderCustomerDetails() {
           testId="customer_products__element-navbar-link-orders"
         />
       </NavBar>
+      <OrderStatusBar />
       <OrderDetailsList />
     </div>
   );
