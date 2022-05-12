@@ -115,7 +115,6 @@ function GlobalProvider({ children }) {
   };
 
   const updateOrder = async (orderId, newStatus) => {
-    setLoading(true);
     try {
       const currentUser = JSON.parse(localStorage.getItem('user'));
       const result = await API.patch(`/${currentUser.role}/orders/${orderId}/update`,
@@ -129,7 +128,6 @@ function GlobalProvider({ children }) {
     } catch (err) {
       setError(err);
     }
-    setLoading(false);
   };
 
   useEffect(() => {
