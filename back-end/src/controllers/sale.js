@@ -20,4 +20,11 @@ const getById = rescue(async (req, res) => {
   return res.status(OK).json(sale);
 });
 
-module.exports = { getAllByCustomerId, getAllBySellerId, getById };
+const update = rescue(async (req, res) => {
+  const { id } = req.params;
+  const { newStatus } = req.body;
+  const sale = await SaleService.update(id, newStatus);
+  return res.status(OK).json(sale);
+});
+
+module.exports = { getAllByCustomerId, getAllBySellerId, getById, update };

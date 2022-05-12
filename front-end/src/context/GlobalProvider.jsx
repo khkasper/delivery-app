@@ -114,6 +114,24 @@ function GlobalProvider({ children }) {
     }
   };
 
+  const updateOrder = async (orderId, newStatus) => {
+    setLoading(true);
+    try {
+      const currentUser = JSON.parse(localStorage.getItem('user'));
+      const result = await API.patch(`/${currentUser.role}/orders/${orderId}/update`,
+        { newStatus },
+        {
+          headers: {
+            Authorization: currentUser.token,
+          },
+        });
+      setCurrentOrder(result.data);
+    } catch (err) {
+      setError(err);
+    }
+    setLoading(false);
+  };
+
   useEffect(() => {
     setLoading(true);
     const currentUser = JSON.parse(localStorage.getItem('user'));
@@ -148,6 +166,7 @@ function GlobalProvider({ children }) {
     getSellers,
     getCurrentOrder,
     currentOrder,
+    updateOrder,
   };
 
   return (

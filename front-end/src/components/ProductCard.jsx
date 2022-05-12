@@ -8,7 +8,6 @@ function ProductCard({ product, quantity }) {
   const { cart, setCart } = useContext(CustomerContext);
 
   const updateCart = (newQuantity) => {
-    console.log(typeof newQuantity);
     const productExistInCart = cart.find((item) => product.id === item.id);
     if (productExistInCart) {
       const newCart = cart.reduce((acc, item) => {
@@ -18,7 +17,6 @@ function ProductCard({ product, quantity }) {
         }
         return [...acc, item];
       }, []);
-      console.log(newCart);
       setCart(newCart);
     } else setCart([...cart, { ...product, quantity: newQuantity }]);
   };
