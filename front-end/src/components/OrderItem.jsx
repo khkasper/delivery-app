@@ -11,7 +11,8 @@ function OrderItem({ testIds, orderId, status, date,
         <span data-testid={ `${testIds.orderId}${orderId}` }>{ orderId }</span>
         <span data-testid={ `${testIds.status}${orderId}` }>{ status }</span>
         <span data-testid={ `${testIds.date}${orderId}` }>
-          { new Date(date).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) }
+          { new Date(date)
+            .toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' }) }
         </span>
         <span data-testid={ `${testIds.price}${orderId}` }>
           {parseFloat(price)

@@ -28,7 +28,7 @@ function OrderStatusBar() {
         }
       >
         { new Date(currentOrder.saleDate)
-          .toLocaleDateString('pt-BR', { timeZone: 'UTC' }) }
+          .toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' }) }
       </span>
       <span
         data-testid={

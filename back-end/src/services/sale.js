@@ -8,8 +8,8 @@ const getById = async (id) => {
   const sale = await Sale.findOne({
     where: { id },
     include: [
-      { model: Product, as: 'products' },
-      { model: User, as: 'seller' },
+      { model: User, as: 'seller', attributes: { exclude: ['email', 'password'] } },
+      { model: Product, as: 'products', through: { attributes: ['quantity'] } },
     ],
 });
   return sale;
