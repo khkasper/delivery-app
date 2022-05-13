@@ -27,7 +27,7 @@ function ProductsList() {
       </SimpleGrid>
       <Link to="/customer/checkout ">
         <Button
-          text="Ver Carrinho: R$ "
+          text="Ver Carrinho: R$&nbsp;"
           disabled={ cart.length === 0 }
           testId="customer_products__button-cart"
           testId2="customer_products__checkout-bottom-value"
