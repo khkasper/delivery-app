@@ -3,7 +3,7 @@ import GlobalContext from '../context/GlobalContext';
 import Button from './Button';
 
 function OrderStatusBar() {
-  const { user, currentOrder } = useContext(GlobalContext);
+  const { user, currentOrder, updateOrder } = useContext(GlobalContext);
 
   if (!currentOrder) return <div>Carregando</div>;
 
@@ -41,8 +41,8 @@ function OrderStatusBar() {
         <Button
           testId="customer_order_details__button-delivery-check"
           text="MARCAR COMO ENTREGUE"
-          disabled
-          // handleClick={ X }
+          disabled={ currentOrder.status !== 'Em Trânsito' }
+          handleClick={ () => updateOrder(currentOrder.id, 'Entregue') }
         />
       )}
       {user.role === 'seller' && (
@@ -50,13 +50,14 @@ function OrderStatusBar() {
           <Button
             testId="seller_order_details__button-preparing-check"
             text="PREPARAR PEDIDO"
-            // handleClick={ X }
+            disabled={ currentOrder.status !== 'Pendente' }
+            handleClick={ () => updateOrder(currentOrder.id, 'Preparando') }
           />
           <Button
             testId="seller_order_details__button-dispatch-check"
-            disabled
             text="SAIU PARA ENTREGA"
-            // handleClick={ X }
+            disabled={ currentOrder.status !== 'Preparando' }
+            handleClick={ () => updateOrder(currentOrder.id, 'Em Trânsito') }
           />
         </>
       )}

@@ -15,4 +15,16 @@ const getById = async (id) => {
   return sale;
 };
 
-module.exports = { getAllByCustomerId, getAllBySellerId, getById };
+const update = async (id, newStatus) => {
+  await Sale.update({ status: newStatus }, { where: { id } });
+  const sale = await Sale.findOne({
+    where: { id },
+    include: [
+    { model: User, as: 'seller', attributes: { exclude: ['email', 'password'] } },
+    { model: Product, as: 'products' },
+    ],
+  });
+  return sale;
+};
+
+module.exports = { getAllByCustomerId, getAllBySellerId, getById, update };

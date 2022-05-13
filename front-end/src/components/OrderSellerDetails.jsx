@@ -11,7 +11,7 @@ function OrderSellerDetails() {
         <NavItem
           to="/seller/orders"
           name="MEUS PEDIDOS"
-          testId="seller-navbar-link-orders"
+          testId="customer_products__element-navbar-link-orders"
         />
       </NavBar>
       <OrderStatusBar />
