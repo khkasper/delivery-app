@@ -1,5 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
+import {
+  Flex, Box, FormControl, FormLabel, Stack, Heading,
+} from '@chakra-ui/react';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import GlobalContext from '../context/GlobalContext';
@@ -18,10 +21,10 @@ function Login() {
 
   if (user) return <Navigate to={ HOMES[user.role] } />;
 
-  return (
-    <main className="containerLoginRegister">
-      <h1>Login</h1>
-      <span>Email</span>
+  // inspirado por https://chakra-templates.dev/forms/authentication
+  const renderEmailInput = () => (
+    <FormControl id="email">
+      <FormLabel>Email</FormLabel>
       <Input
         testId="common_login__input-email"
         type="email"
@@ -29,7 +32,12 @@ function Login() {
         value={ email }
         handleChange={ (e) => setEmail(e.target.value) }
       />
-      <span>Password</span>
+    </FormControl>
+  );
+
+  const renderPasswordInput = () => (
+    <FormControl id="password">
+      <FormLabel>Senha</FormLabel>
       <Input
         testId="common_login__input-password"
         type="password"
@@ -37,11 +45,21 @@ function Login() {
         value={ password }
         handleChange={ (e) => setPassword(e.target.value) }
       />
+    </FormControl>
+  );
+
+  const renderAnotherFields = () => (
+    <Stack spacing={ 10 }>
       <Button
+        bg="blue.400"
+        color="white"
         testId="common_login__button-login"
         text="LOGIN"
         disabled={ disabled }
         handleClick={ () => loginUser({ email, password }) }
+        _hover={ {
+          bg: 'blue.500',
+        } }
       />
       <Link to="/register">
         <Button
@@ -49,9 +67,38 @@ function Login() {
           text="Ainda não tenho conta"
         />
       </Link>
-      { error
-        && (<span data-testid="common_login__element-invalid-email">{error.message}</span>
-        ) }
+      {error && (
+        <span data-testid="common_login__element-invalid-email">{error.message}</span>
+      )}
+    </Stack>
+  );
+
+  return (
+    <main className="containerLoginRegister">
+      <Flex
+        minH="100vh"
+        align="center"
+        justify="center"
+        bg="gray.50"
+      >
+        <Stack spacing={ 8 } mx="auto" maxW="lg" py={ 12 } px={ 6 }>
+          <Stack align="center">
+            <Heading fontSize="4xl">Entre na sua conta</Heading>
+          </Stack>
+          <Box
+            rounded="lg"
+            bg="white"
+            boxShadow="lg"
+            p={ 8 }
+          >
+            <Stack spacing={ 4 }>
+              { renderEmailInput() }
+              { renderPasswordInput() }
+              { renderAnotherFields() }
+            </Stack>
+          </Box>
+        </Stack>
+      </Flex>
     </main>
   );
 }
