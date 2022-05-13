@@ -74,7 +74,7 @@ function Admin() {
         >
           <option value="seller">Vendedor</option>
           <option value="customer">Cliente</option>
-          <option value="admin">Administrador</option>
+          <option value="administrator">Administrador</option>
         </select>
         <Button
           testId="admin_manage__button-register"
