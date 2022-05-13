@@ -5,7 +5,6 @@ const { invalidUser } = require('../utils/statusMessages');
 
 module.exports = rescue(async (req, _res, next) => {
   const { role } = req.userInfo;
-  console.log(role);
 
   if (role !== 'administrator') throw new HttpError(UNAUTHORIZED, invalidUser);
 
