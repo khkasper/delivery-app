@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import GlobalContext from './GlobalContext';
@@ -13,17 +13,21 @@ function GlobalProvider({ children }) {
   const [sellers, setSellers] = useState([]);
   const [currentOrder, setCurrentOrder] = useState();
   const navigate = useNavigate();
-  const API = axios.create({
-    baseURL: 'http://localhost:3001',
-  });
 
-  const HOMES = {
-    administrator: '/admin/manage',
-    customer: '/customer/products',
-    seller: '/seller/orders',
-  };
+  const BASE_URL = 'http://localhost:3001';
 
-  const loginUser = async ({ email, password }) => {
+  const USER_HOME = '/customer/products';
+
+  const loginUser = useCallback(async ({ email, password }) => {
+    const API = axios.create({
+      baseURL: BASE_URL,
+    });
+
+    const HOMES = {
+      administrator: '/admin/manage',
+      customer: USER_HOME,
+      seller: '/seller/orders',
+    };
     try {
       setLoading(true);
       const { data } = await API.post('/login', { email, password });
@@ -34,32 +38,42 @@ function GlobalProvider({ children }) {
     } catch (err) {
       setError(err.response.data);
     }
-  };
+  }, [navigate]);
 
-  const registerUser = async ({ name, email, password }) => {
+  const registerUser = useCallback(async ({ name, email, password }) => {
+    const API = axios.create({
+      baseURL: BASE_URL,
+    });
+
     try {
       setLoading(true);
       const { data } = await API.post('/register', { name, email, password });
       setUser(data);
       localStorage.setItem('user', JSON.stringify(data));
       setLoading(false);
-      navigate(HOMES[data.role]);
+      navigate(USER_HOME);
     } catch (err) {
       setError(err.response.data);
     }
-  };
+  }, [navigate]);
 
-  const getProducts = async () => {
+  const getProducts = useCallback(async () => {
+    const API = axios.create({
+      baseURL: BASE_URL,
+    });
     const currentUser = JSON.parse(localStorage.getItem('user'));
-    const { data } = await API.get('/customer/products', {
+    const { data } = await API.get(USER_HOME, {
       headers: {
         Authorization: currentUser.token,
       },
     });
     setProducts(data);
-  };
+  }, []);
 
-  const getOrders = async () => {
+  const getOrders = useCallback(async () => {
+    const API = axios.create({
+      baseURL: BASE_URL,
+    });
     try {
       const currentUser = JSON.parse(localStorage.getItem('user'));
       const result = await API.get(`/${currentUser.role}/orders`, {
@@ -71,9 +85,12 @@ function GlobalProvider({ children }) {
     } catch (err) {
       setError(err);
     }
-  };
+  }, []);
 
-  const getSellers = async () => {
+  const getSellers = useCallback(async () => {
+    const API = axios.create({
+      baseURL: BASE_URL,
+    });
     try {
       const currentUser = JSON.parse(localStorage.getItem('user'));
       const result = await API.get('/seller/', {
@@ -85,9 +102,12 @@ function GlobalProvider({ children }) {
     } catch (err) {
       setError(err);
     }
-  };
+  }, []);
 
-  const getCurrentOrder = async (orderId) => {
+  const getCurrentOrder = useCallback(async (orderId) => {
+    const API = axios.create({
+      baseURL: BASE_URL,
+    });
     try {
       const currentUser = JSON.parse(localStorage.getItem('user'));
       const result = await API.get(`/${currentUser.role}/orders/${orderId}`, {
@@ -99,9 +119,12 @@ function GlobalProvider({ children }) {
     } catch (err) {
       setError(err);
     }
-  };
+  }, []);
 
-  const updateOrder = async (orderId, newStatus) => {
+  const updateOrder = useCallback(async (orderId, newStatus) => {
+    const API = axios.create({
+      baseURL: BASE_URL,
+    });
     try {
       const currentUser = JSON.parse(localStorage.getItem('user'));
       const result = await API.patch(`/${currentUser.role}/orders/${orderId}/update`,
@@ -115,7 +138,7 @@ function GlobalProvider({ children }) {
     } catch (err) {
       setError(err);
     }
-  };
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -139,7 +162,6 @@ function GlobalProvider({ children }) {
     loginUser,
     registerUser,
     handleLogOut,
-    HOMES,
     products,
     loading,
     getProducts,

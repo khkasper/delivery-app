@@ -9,7 +9,13 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
-  const { loginUser, error, user, HOMES } = useContext(GlobalContext);
+  const { loginUser, error, user } = useContext(GlobalContext);
+
+  const HOMES = {
+    administrator: '/admin/manage',
+    customer: '/customer/products',
+    seller: '/seller/orders',
+  };
 
   useEffect(() => {
     const result = loginValidate(email, password);

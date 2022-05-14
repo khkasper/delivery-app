@@ -16,7 +16,7 @@ function Checkout() {
       setLoading(false);
     };
     loadSellers();
-  }, []);
+  }, [getSellers, setLoading]);
 
   if (loading) return <div>Carregando</div>;
 

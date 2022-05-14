@@ -10,7 +10,13 @@ function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
-  const { registerUser, error, HOMES, user } = useContext(GlobalContext);
+  const { registerUser, error, user } = useContext(GlobalContext);
+
+  const HOMES = {
+    administrator: '/admin/manage',
+    customer: '/customer/products',
+    seller: '/seller/orders',
+  };
 
   useEffect(() => {
     const result = registerValidate(name, email, password);
