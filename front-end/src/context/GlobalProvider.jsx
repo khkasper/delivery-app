@@ -49,19 +49,6 @@ function GlobalProvider({ children }) {
     }
   };
 
-  const registerUserAdmin = async ({ name, email, password, role }) => {
-    try {
-      await API.post('/admin/manage', { name, email, password, role }, {
-        headers: {
-          Authorization: user.token,
-        },
-      });
-      navigate(HOMES[user.role]);
-    } catch (err) {
-      setError(err.response.data);
-    }
-  };
-
   const getProducts = async () => {
     const currentUser = JSON.parse(localStorage.getItem('user'));
     const { data } = await API.get('/customer/products', {
@@ -155,11 +142,11 @@ function GlobalProvider({ children }) {
     HOMES,
     products,
     loading,
-    registerUserAdmin,
     getProducts,
     getOrders,
     orders,
     setLoading,
+    setError,
     sellers,
     getSellers,
     getCurrentOrder,
