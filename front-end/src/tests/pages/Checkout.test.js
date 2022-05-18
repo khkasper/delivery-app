@@ -1,23 +1,39 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
-import { screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-
-import renderWithRouter from '../utils/renderWithRouter';
 
 import CHECKOUT_IDS from '../utils/selectors/common/checkout';
 import Checkout from '../../pages/Checkout';
+import GlobalContext from '../../context/GlobalContext';
+import renderWithRouter from '../utils/renderWithRouter';
 
 describe('Tela Checkout', () => {
-  let history;
-
   beforeEach(() => {
-    const rendering = renderWithRouter(<Checkout />);
-    history = rendering.history;
-    global.localStorage = {
-      getItem: () => {},
-      setItem: () => {},
-    };
+    renderWithRouter(
+      <GlobalContext.Provider value={ {
+        setLoading: jest.fn(),
+        getSellers: jest.fn(),
+        loading: false,
+        user: {
+          "id": 3,
+          "name": "Cliente Zé Birita",
+          "email": "zebirita@email.com",
+          "role": "customer",
+          "token": "someNiceToken"
+        },
+        sellers: [
+          {
+            "id": 2,
+            "name": "Fulana Pereira",
+            "email": "fulana@deliveryapp.com",
+            "role": "seller"
+          }
+        ]
+      } }>
+        <Checkout />
+      </GlobalContext.Provider>
+    );
   });
 
   describe.only('Ao renderizar a tela de Checkout', () => {
