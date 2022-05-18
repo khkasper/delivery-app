@@ -36,7 +36,7 @@ describe('Tela Checkout', () => {
     );
   });
 
-  describe.only('Ao renderizar a tela de Checkout', () => {
+  describe('Ao renderizar a tela de Checkout', () => {
     test('Deve ter a tabela de produtos vazia', async () => {
       const cartItem = await screen
         .queryByTestId(CHECKOUT_IDS.element.orderTable.itemNumber + '0');
