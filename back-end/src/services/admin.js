@@ -5,7 +5,7 @@ const { registeredUser, invalidUser } = require('../utils/statusMessages');
 const { HttpError } = require('../utils');
 
 const getAll = async ({ email }) => {
-  const { role } = User.findOne({ where: { email } });
+  const { role } = await User.findOne({ where: { email } });
 
   if (role !== 'administrator') throw new HttpError(UNAUTHORIZED, invalidUser);
 
@@ -44,14 +44,13 @@ const update = async (body, userInfo) => {
   return user;
 };
 
-const remove = async (body, userInfo) => {
-  const { email } = body;
+const remove = async (userIdToRemove, userInfo) => {
   const { email: adminEmail } = userInfo;
   const { role: adminRole } = await User.findOne({ where: { email: adminEmail } });
 
   if (adminRole !== 'administrator') throw new HttpError(UNAUTHORIZED, invalidUser);
 
-  const user = await User.destroy({ where: { email } });
+  const user = await User.destroy({ where: { id: userIdToRemove } });
   return user;
 };
 

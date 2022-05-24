@@ -8,6 +8,6 @@ const router = express.Router();
 router.get('/manage', AdminController.getAll);
 router.post('/manage', validate(userByAdmin), AdminController.create);
 router.put('/manage', validate(userByAdmin), AdminController.update);
-router.delete('/manage', AdminController.remove);
+router.delete('/manage/:id', AdminController.remove);
 
 module.exports = router;
