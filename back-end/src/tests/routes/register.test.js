@@ -8,8 +8,9 @@ const { expect, request } = chai;
 
 const app = require('../../api/app');
 const { User } = require('../../database/models');
+const { mockUser } = require('../mocks/users');
 
-describe('Rota /register', () => {
+describe('Rota POST /register', () => {
   beforeEach(sinon.restore);
 
   describe('Ao passar dados inválidos', () => {
@@ -25,12 +26,7 @@ describe('Rota /register', () => {
 
   describe('Ao passar email existente', () => {
     test('Retorna erro 404', async () => {
-      sinon.stub(User, 'findOne').resolves({
-        email: "zebirita@email.com",
-        id: 3,
-        name: "Cliente Zé Birita",
-        role: "customer",
-      });
+      sinon.stub(User, 'findOne').resolves(mockUser);
 
       const response = await request(app)
         .post('/register')
@@ -47,12 +43,7 @@ describe('Rota /register', () => {
   describe('Ao passar dados corretos', () => {
     test('Retorna os dados do usuário e um token', async () => {
       sinon.stub(User, 'findOne').resolves(null);
-      sinon.stub(User, 'create').resolves({
-        email: "zebirita@email.com",
-        id: 3,
-        name: "Cliente Zé Birita",
-        role: "customer",
-      });
+      sinon.stub(User, 'create').resolves(mockUser);
 
       const response = await request(app)
         .post('/register')
