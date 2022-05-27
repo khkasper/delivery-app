@@ -13,6 +13,18 @@ const { mockUser } = require('../mocks/users');
 describe('Rota POST /login', () => {
   beforeEach(sinon.restore);
 
+  describe('Ao ter problemas com a DB', () => {
+    test('Retorna erro 500', async () => {
+      sinon.stub(User, 'findOne').rejects();
+
+      const response = await request(app)
+        .post('/login')
+        .send({ email: "zebirita@email.com", password: "$#zebirita#$" });
+
+      expect(response).to.have.status(500)
+    });
+  });
+
   describe('Ao passar dados inválidos', () => {
     test('Retorna erro 400', async () => {
       sinon.stub(User, 'findOne').rejects();
