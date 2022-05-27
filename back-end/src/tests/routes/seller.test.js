@@ -172,9 +172,9 @@ describe('Rota PATCH /seller/orders/:id/update', () => {
   });
 
   describe.skip('Ao passar id de pedido inválido', () => {
-    sinon.stub(Sale, 'findOne').resolves(null);
 
     test('Retorna erro 404', async () => {
+      sinon.stub(Sale, 'findOne').resolves(null);
       const response = await request(app)
         .patch('/seller/orders/1/update')
         .set('Authorization', JwtToken.generate(mockSeller))

@@ -239,3 +239,67 @@ describe('Rota POST /customer/checkout', () => {
     });
   });
 });
+
+describe('Rota PATCH /customer/orders/:id/update', () => {
+  beforeEach(sinon.restore);
+
+  describe('Ao não passar token', () => {
+    test('Retorna erro 401', async () => {
+      const response = await request(app)
+        .patch('/customer/orders/1/update')
+        .send({ status: 'Preparando' });
+
+      expect(response).to.have.status(401)
+    });
+  });
+
+  describe.skip('Ao passar token inválido', () => {
+    test('Retorna erro 401', async () => {
+      const response = await request(app)
+        .patch('/customer/orders/1/update')
+        .set('Authorization', 'badBadToken')
+        .send({ status: 'Preparando' });
+
+      expect(response).to.have.status(401)
+    });
+  });
+
+  describe.skip('Ao passar dados inválidos', () => {
+    test('Retorna erro 400', async () => {
+      const response = await request(app)
+        .patch('/customer/orders/1/update')
+        .set('Authorization', JwtToken.generate(mockUser))
+        .send({});
+
+      expect(response).to.have.status(400)
+    });
+  });
+
+  describe.skip('Ao passar id de pedido inválido', () => {
+
+    test('Retorna erro 404', async () => {
+      sinon.stub(Sale, 'findOne').resolves(null);
+      const response = await request(app)
+        .patch('/customer/orders/1/update')
+        .set('Authorization', JwtToken.generate(mockUser))
+        .send({});
+
+      expect(response).to.have.status(404)
+    });
+  });
+
+  describe('Ao passar token e dados corretamente', () => {
+    test('Atualiza o pedido', async () => {
+      sinon.stub(Sale, 'update').resolves([1]);
+      sinon.stub(Sale, 'findOne').resolves({});
+
+      const response = await request(app)
+        .patch('/customer/orders/1/update')
+        .set('Authorization', JwtToken.generate(mockUser))
+        .send({ status: 'Preparando' });
+
+      expect(response).to.have.status(200);
+      expect(response.body).to.deep.equal({})
+    });
+  });
+});
