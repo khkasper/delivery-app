@@ -129,3 +129,69 @@ describe('Rota POST /admin/manage', () => {
     });
   });
 });
+
+describe('Rota PUT /admin/manage', () => {
+  beforeEach(sinon.restore);
+
+  describe('Ao não passar token', () => {
+    test('Retorna erro 401', async () => {
+      const response = await request(app)
+        .put('/admin/manage');
+
+      expect(response).to.have.status(401)
+    });
+  });
+
+  // TODO: implementar na API, atualmente gera erro 500
+  describe.skip('Ao passar token inválido', () => {
+    test('Retorna erro 401', async () => {
+      const response = await request(app)
+        .put('/admin/manage')
+        .set('Authorization', 'badBadToken')
+
+      expect(response).to.have.status(401)
+    });
+  });
+
+  describe('Ao passar token de não-admin', () => {
+    test('Retorna erro 401', async () => {
+      sinon.stub(User, 'findOne').resolves(mockUser);
+
+      const response = await request(app)
+        .put('/admin/manage')
+        .set('Authorization', JwtToken.generate(mockUser))
+        .send(mockNewUser);
+
+      expect(response).to.have.status(401)
+    });
+  });
+
+  describe('Ao passar dados inválidos', () => {
+    test('Retorna erro 400', async () => {
+      const response = await request(app)
+        .put('/admin/manage')
+        .set('Authorization', JwtToken.generate(mockAdmin))
+        .send({});
+
+      expect(response).to.have.status(400)
+    });
+  });
+
+  describe('Ao passar token e dados corretamente', () => {
+    test('Atualiza o usuário', async () => {
+      const mockFind = sinon.stub(User, 'findOne');
+      mockFind.onFirstCall().resolves(mockAdmin);
+      mockFind.onSecondCall().resolves(mockUser);
+
+      sinon.stub(User, 'update').resolves([1]);
+
+      const response = await request(app)
+        .put('/admin/manage')
+        .set('Authorization', JwtToken.generate(mockAdmin))
+        .send(mockNewUser)
+
+      expect(response).to.have.status(200);
+      expect(response.body).to.deep.equal(mockUser)
+    });
+  });
+});

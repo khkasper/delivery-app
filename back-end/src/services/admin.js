@@ -37,10 +37,11 @@ const update = async (body, userInfo) => {
   if (adminRole !== 'administrator') throw new HttpError(UNAUTHORIZED, invalidUser);
 
   const passwordCripto = MD5(password);
-  const user = await User.findOneAndUpdate(
+  await User.update(
     { name, email, password: passwordCripto, role },
     { where: { email } },
   );
+  const user = await User.findOne({ where: { email } });
   return user;
 };
 
