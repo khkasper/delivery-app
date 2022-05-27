@@ -12,4 +12,11 @@ const mockUser = {
   role: "customer",
 }
 
-module.exports = { mockAdmin, mockUser }
+const mockNewUser = {
+  email: "zebirita@email.com",
+  name: "Cliente Zé Birita",
+  role: "customer",
+  password: 'somePassword'
+}
+
+module.exports = { mockAdmin, mockUser, mockNewUser }
