@@ -12,6 +12,42 @@ const { mockSeller, mockNewUser, mockUser } = require('../mocks/users');
 const { JwtToken } = require('../../utils');
 const { mockCheckout } = require('../mocks/sells');
 
+describe('Rota GET /seller', () => {
+  beforeEach(sinon.restore);
+
+  describe('Ao não passar token', () => {
+    test('Retorna erro 401', async () => {
+      const response = await request(app)
+        .get('/seller');
+
+      expect(response).to.have.status(401)
+    });
+  });
+
+  describe.skip('Ao passar token inválido', () => {
+    test('Retorna erro 401', async () => {
+      const response = await request(app)
+        .get('/seller')
+        .set('Authorization', 'badBadToken')
+
+      expect(response).to.have.status(401)
+    });
+  });
+
+  describe('Ao passar token corretamente', () => {
+    test('Retorna a lista de vendedores', async () => {
+      sinon.stub(User, 'findAll').resolves([]);
+
+      const response = await request(app)
+        .get('/seller')
+        .set('Authorization', JwtToken.generate(mockUser))
+
+      expect(response).to.have.status(200);
+      expect(response.body).to.deep.equal([])
+    });
+  });
+});
+
 describe('Rota GET /seller/orders', () => {
   beforeEach(sinon.restore);
 
