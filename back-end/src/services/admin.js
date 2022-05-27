@@ -51,8 +51,8 @@ const remove = async (userIdToRemove, userInfo) => {
 
   if (adminRole !== 'administrator') throw new HttpError(UNAUTHORIZED, invalidUser);
 
-  const user = await User.destroy({ where: { id: userIdToRemove } });
-  return user;
+  const totalRemoved = await User.destroy({ where: { id: userIdToRemove } });
+  return totalRemoved;
 };
 
 module.exports = {

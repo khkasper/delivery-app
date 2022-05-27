@@ -34,6 +34,18 @@ describe('Rota GET /admin/manage', () => {
     });
   });
 
+  describe('Ao passar token de não-admin', () => {
+    test('Retorna erro 401', async () => {
+      sinon.stub(User, 'findOne').resolves(mockUser);
+
+      const response = await request(app)
+        .get('/admin/manage')
+        .set('Authorization', JwtToken.generate(mockUser));
+
+      expect(response).to.have.status(401)
+    });
+  });
+
   describe('Ao passar token corretamente', () => {
     test('Retorna a lista de usuários', async () => {
       sinon.stub(User, 'findOne').resolves(mockAdmin);
@@ -192,6 +204,72 @@ describe('Rota PUT /admin/manage', () => {
 
       expect(response).to.have.status(200);
       expect(response.body).to.deep.equal(mockUser)
+    });
+  });
+});
+
+describe('Rota DELETE /admin/manage', () => {
+  beforeEach(sinon.restore);
+
+  describe('Ao não passar token', () => {
+    test('Retorna erro 401', async () => {
+      const response = await request(app)
+        .delete('/admin/manage/3');
+
+      expect(response).to.have.status(401)
+    });
+  });
+
+  // TODO: implementar na API, atualmente gera erro 500
+  describe.skip('Ao passar token inválido', () => {
+    test('Retorna erro 401', async () => {
+      const response = await request(app)
+        .delete('/admin/manage/3')
+        .set('Authorization', 'badBadToken')
+
+      expect(response).to.have.status(401)
+    });
+  });
+
+  describe('Ao passar token de não-admin', () => {
+    test('Retorna erro 401', async () => {
+      sinon.stub(User, 'findOne').resolves(mockUser);
+
+      const response = await request(app)
+        .delete('/admin/manage/3')
+        .set('Authorization', JwtToken.generate(mockUser))
+        .send(mockNewUser);
+
+      expect(response).to.have.status(401)
+    });
+  });
+
+  // TODO: implementar verificação de id
+  describe.skip('Ao passar id inválido', () => {
+    test('Retorna erro 400', async () => {
+      const response = await request(app)
+        .delete('/admin/manage/3')
+        .set('Authorization', JwtToken.generate(mockAdmin))
+        .send({});
+
+      expect(response).to.have.status(400)
+    });
+  });
+
+  describe('Ao passar token e dados corretamente', () => {
+    test('Remove o usuário', async () => {
+      const mockFind = sinon.stub(User, 'findOne');
+      mockFind.onFirstCall().resolves(mockAdmin);
+      mockFind.onSecondCall().resolves(mockUser);
+
+      sinon.stub(User, 'destroy').resolves(1);
+
+      const response = await request(app)
+        .delete('/admin/manage/3')
+        .set('Authorization', JwtToken.generate(mockAdmin))
+        .send(mockNewUser)
+
+      expect(response).to.have.status(204);
     });
   });
 });
