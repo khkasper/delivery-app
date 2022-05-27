@@ -100,6 +100,94 @@ describe('Rota GET /customer/products/:id', () => {
   });
 });
 
+describe('Rota GET /customer/orders', () => {
+  beforeEach(sinon.restore);
+
+  describe('Ao não passar token', () => {
+    test('Retorna erro 401', async () => {
+      const response = await request(app)
+        .get('/customer/orders');
+
+      expect(response).to.have.status(401)
+    });
+  });
+
+  describe.skip('Ao passar token inválido', () => {
+    test('Retorna erro 401', async () => {
+      const response = await request(app)
+        .get('/customer/orders')
+        .set('Authorization', 'badBadToken')
+
+      expect(response).to.have.status(401)
+    });
+  });
+
+  describe('Ao passar token corretamente', () => {
+    test('Retorna a lista de produtos', async () => {
+      sinon.stub(User, 'findOne').resolves(mockUser);
+      sinon.stub(Sale, 'findAll').resolves([]);
+
+      const response = await request(app)
+        .get('/customer/orders')
+        .set('Authorization', JwtToken.generate(mockUser))
+
+      expect(response).to.have.status(200);
+      expect(response.body).to.deep.equal([])
+    });
+  });
+});
+
+describe('Rota GET /customer/orders/:id', () => {
+  beforeEach(sinon.restore);
+
+  describe('Ao não passar token', () => {
+    test('Retorna erro 401', async () => {
+      const response = await request(app)
+        .get('/customer/orders/1');
+
+      expect(response).to.have.status(401)
+    });
+  });
+
+  describe.skip('Ao passar token inválido', () => {
+    test('Retorna erro 401', async () => {
+      const response = await request(app)
+        .get('/customer/orders/1')
+        .set('Authorization', 'badBadToken')
+
+      expect(response).to.have.status(401)
+    });
+  });
+
+  // TODO: implementar 
+  describe.skip('Ao passar id inexistente', () => {
+    test('Retorna erro 404', async () => {
+      sinon.stub(User, 'findOne').resolves(mockUser);
+      sinon.stub(Sale, 'findOne').resolves(null);
+
+      const response = await request(app)
+        .get('/customer/orders/1')
+        .set('Authorization', JwtToken.generate(mockUser))
+
+      expect(response).to.have.status(404);
+    });
+  });
+
+  describe('Ao passar token corretamente', () => {
+    test('Retorna o produto', async () => {
+      sinon.stub(User, 'findOne').resolves(mockUser);
+      sinon.stub(Sale, 'findOne').resolves({});
+
+      const response = await request(app)
+        .get('/customer/orders/1')
+        .set('Authorization', JwtToken.generate(mockUser))
+
+      expect(response).to.have.status(200);
+      expect(response.body).to.deep.equal({})
+    });
+  });
+});
+
 describe('Rota POST /customer/checkout', () => {
   beforeEach(sinon.restore);
 
