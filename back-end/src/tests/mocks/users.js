@@ -19,4 +19,11 @@ const mockNewUser = {
   password: 'somePassword'
 }
 
-module.exports = { mockAdmin, mockUser, mockNewUser }
+const mockSeller = {
+  id: 2,
+  name: "Fulana Pereira",
+  email: "fulana@deliveryapp.com",
+  role: "seller",
+};
+
+module.exports = { mockAdmin, mockUser, mockNewUser, mockSeller }
