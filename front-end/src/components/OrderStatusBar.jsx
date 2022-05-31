@@ -1,3 +1,4 @@
+import { Badge, HStack, Text } from '@chakra-ui/react';
 import React, { useContext } from 'react';
 import GlobalContext from '../context/GlobalContext';
 import Button from './Button';
@@ -8,35 +9,37 @@ function OrderStatusBar() {
   if (!currentOrder) return <div>Carregando</div>;
 
   return (
-    <div>
-      <span
+    <HStack justifyContent="space-between" p="5">
+      <Text
+        fontWeight="bold"
         data-testid={ `${user.role}_order_details__element-order-details-label-order-id` }
       >
-        PEDIDO
+        PEDIDO&nbsp;
         {currentOrder.id}
-      </span>
-      <span
+      </Text>
+      <Text
         data-testid={
           `${user.role}_order_details__element-order-details-label-seller-name`
         }
       >
         {currentOrder.seller.name}
-      </span>
-      <span
+      </Text>
+      <Text
         data-testid={
           `${user.role}_order_details__element-order-details-label-order-date`
         }
       >
         { new Date(currentOrder.saleDate)
           .toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' }) }
-      </span>
-      <span
+      </Text>
+      <Badge
+        fontSize="0.9em"
         data-testid={
           `${user.role}_order_details__element-order-details-label-delivery-status`
         }
       >
         {currentOrder.status}
-      </span>
+      </Badge>
       {user.role === 'customer' && (
         <Button
           testId="customer_order_details__button-delivery-check"
@@ -61,7 +64,7 @@ function OrderStatusBar() {
           />
         </>
       )}
-    </div>
+    </HStack>
   );
 }
 
