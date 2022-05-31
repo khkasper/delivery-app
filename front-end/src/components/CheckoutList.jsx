@@ -1,7 +1,8 @@
-import { Table, Tbody, Heading, Th, Thead, Tr, Box, Stack } from '@chakra-ui/react';
+import { Table, Tbody, Heading, Th, Thead, Tr, Stack } from '@chakra-ui/react';
 import React, { useContext } from 'react';
 import CustomerContext from '../context/CustomerContext';
 import CheckoutItem from './CheckoutItem';
+import TotalPriceDisplay from './TotalPriceDisplay';
 
 function CheckoutList() {
   const { cart, totalPrice } = useContext(CustomerContext);
@@ -26,22 +27,10 @@ function CheckoutList() {
           ))}
         </Tbody>
       </Table>
-      <Box alignSelf="end" p="5">
-        <Heading
-          size="md"
-          borderRadius="5px"
-          background="Highlight"
-          p="3"
-        >
-          Total: R$&nbsp;
-          <span
-            data-testid="customer_checkout__element-order-total-price"
-          >
-            {parseFloat(totalPrice)
-              .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-          </span>
-        </Heading>
-      </Box>
+      <TotalPriceDisplay
+        totalPrice={ totalPrice }
+        testId="customer_checkout__element-order-total-price"
+      />
     </Stack>
   );
 }
