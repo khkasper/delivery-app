@@ -1,3 +1,4 @@
+import { Divider, Heading, Stack } from '@chakra-ui/react';
 import React from 'react';
 import NavBar from './NavBar';
 import NavItem from './NavItem';
@@ -6,7 +7,7 @@ import OrderStatusBar from './OrderStatusBar';
 
 function OrderCustomerDetails() {
   return (
-    <div>
+    <Stack>
       <NavBar>
         <NavItem
           to="/customer/products"
@@ -19,9 +20,11 @@ function OrderCustomerDetails() {
           testId="customer_products__element-navbar-link-orders"
         />
       </NavBar>
+      <Heading p="5">Detalhes do pedido</Heading>
+      <Divider />
       <OrderStatusBar />
       <OrderDetailsList />
-    </div>
+    </Stack>
   );
 }
 

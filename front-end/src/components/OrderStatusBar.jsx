@@ -9,7 +9,7 @@ function OrderStatusBar() {
   if (!currentOrder) return <div>Carregando</div>;
 
   return (
-    <HStack justifyContent="space-between" p="5">
+    <HStack justifyContent="space-between" px="5" py="3">
       <Text
         fontWeight="bold"
         data-testid={ `${user.role}_order_details__element-order-details-label-order-id` }

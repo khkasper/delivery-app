@@ -1,3 +1,4 @@
+import { Td, Tr } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import GlobalContext from '../context/GlobalContext';
@@ -9,45 +10,48 @@ function OrderDetailstItem({ product, index }) {
   const subtotal = () => (Number(price) * quantity);
 
   return (
-    <tr>
-      <td
+    <Tr>
+      <Td
         data-testid={
           `${user.role}_order_details__element-order-table-item-number-${index}`
         }
       >
         {index + 1}
-      </td>
-      <td
+      </Td>
+      <Td
         data-testid={
           `${user.role}_order_details__element-order-table-name-${index}`
         }
       >
         {name}
-      </td>
-      <td
+      </Td>
+      <Td
+        isNumeric
         data-testid={
           `${user.role}_order_details__element-order-table-quantity-${index}`
         }
       >
         {quantity}
-      </td>
-      <td
+      </Td>
+      <Td
+        isNumeric
         data-testid={
           `${user.role}_order_details__element-order-table-unit-price-${index}`
         }
       >
         {parseFloat(price)
           .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-      </td>
-      <td
+      </Td>
+      <Td
+        isNumeric
         data-testid={
           `${user.role}_order_details__element-order-table-sub-total-${index}`
         }
       >
         {parseFloat(subtotal())
           .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-      </td>
-    </tr>
+      </Td>
+    </Tr>
   );
 }
 
