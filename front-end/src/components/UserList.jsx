@@ -1,6 +1,5 @@
 import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import React, { useContext } from 'react';
-// import { TableContainer, Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
 import AdminContext from '../context/AdminContext';
 import Button from './Button';
 
