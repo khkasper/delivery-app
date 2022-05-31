@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
+import { Divider, SimpleGrid, Stack, Text } from '@chakra-ui/react';
 import GlobalContext from '../context/GlobalContext';
 import NavBar from './NavBar';
 import NavItem from './NavItem';
@@ -17,21 +18,34 @@ function OrdersSeller({ dataTestIdsSeller }) {
           testId="customer_products__element-navbar-link-orders"
         />
       </NavBar>
-      {
-        orders.map((order, index) => (
-          <OrderItem
-            key={ index }
-            testIds={ dataTestIdsSeller }
-            orderId={ order.id }
-            status={ order.status }
-            date={ order.saleDate }
-            price={ order.totalPrice }
-            address={ order.deliveryAddress }
-            addressNumber={ order.deliveryNumber }
-            role={ user.role }
-          />
-        ))
-      }
+      <SimpleGrid p="5" columns="5">
+        <Text fontWeight="bold">ID</Text>
+        <Text fontWeight="bold">Status</Text>
+        <Text fontWeight="bold">Data</Text>
+        <Text fontWeight="bold">Total</Text>
+        <Text fontWeight="bold">Endereço</Text>
+      </SimpleGrid>
+      <Divider />
+      <Stack p="5">
+        {
+          orders.map((order, index) => (
+            <>
+              <OrderItem
+                key={ index }
+                testIds={ dataTestIdsSeller }
+                orderId={ order.id }
+                status={ order.status }
+                date={ order.saleDate }
+                price={ order.totalPrice }
+                address={ order.deliveryAddress }
+                addressNumber={ order.deliveryNumber }
+                role={ user.role }
+              />
+              <Divider />
+            </>
+          ))
+        }
+      </Stack>
     </div>
   );
 }

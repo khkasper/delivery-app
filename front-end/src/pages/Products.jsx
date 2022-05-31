@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { Container } from '@chakra-ui/react';
 import NavBar from '../components/NavBar';
 import NavItem from '../components/NavItem';
 import ProductsList from '../components/ProductsList';
@@ -21,7 +22,7 @@ function Products() {
 
   return (
     <CustomerProvider>
-      <div>
+      <Container maxW="100%" p={ 0 }>
         <NavBar>
           <NavItem
             to="/customer/products"
@@ -35,7 +36,7 @@ function Products() {
           />
         </NavBar>
         <ProductsList />
-      </div>
+      </Container>
     </CustomerProvider>
   );
 }

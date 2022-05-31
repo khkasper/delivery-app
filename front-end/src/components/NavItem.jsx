@@ -1,12 +1,17 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 function NavItem({ to, name, testId }) {
   return (
-    <Link to={ to } className="linkNavBar">
+    <NavLink
+      to={ to }
+      className={
+        (navData) => (navData.isActive ? 'linkNavBar linkNavBarActive' : 'linkNavBar')
+      }
+    >
       <span data-testid={ testId }>{ name }</span>
-    </Link>
+    </NavLink>
   );
 }
 

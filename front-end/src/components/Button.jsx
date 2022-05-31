@@ -1,22 +1,28 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Button as ChakraButton } from '@chakra-ui/react';
 
-function Button({ testId, text, handleClick, disabled, className, value, testId2 }) {
+function Button({
+  testId, text, handleClick, disabled, className, value,
+  testId2, icon, pos = {}, minW,
+}) {
   return (
-    <button
+    <ChakraButton
+      colorScheme="teal"
       className={ className }
       data-testid={ testId }
       type="button"
       disabled={ disabled }
       onClick={ handleClick }
+      pos={ pos.name }
+      bottom={ pos.bottom }
+      right={ pos.right }
+      minW={ minW }
     >
+      { icon }
       { text }
-      <span
-        data-testid={ testId2 }
-      >
-        { value }
-      </span>
-    </button>
+      { value && <span data-testid={ testId2 }>{ value }</span>}
+    </ChakraButton>
   );
 }
 
@@ -24,18 +30,29 @@ Button.defaultProps = {
   className: '',
   disabled: false,
   handleClick: () => {},
-  value: '',
-  testId2: '',
+  value: undefined,
+  testId2: undefined,
+  text: undefined,
+  icon: undefined,
+  pos: undefined,
+  minW: undefined,
 };
 
 Button.propTypes = {
   handleClick: PropTypes.func,
   testId: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
   disabled: PropTypes.bool,
   className: PropTypes.string,
   value: PropTypes.string,
   testId2: PropTypes.string,
+  icon: PropTypes.node,
+  pos: PropTypes.shape({
+    name: PropTypes.string,
+    bottom: PropTypes.number,
+    right: PropTypes.number,
+  }),
+  minW: PropTypes.string,
 };
 
 export default Button;
