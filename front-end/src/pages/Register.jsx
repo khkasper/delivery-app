@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import {
   Box, Flex, FormControl, FormLabel, Heading, Image, Stack,
 } from '@chakra-ui/react';
@@ -74,6 +74,13 @@ function Register() {
           bg: 'blue.500',
         } }
       />
+      <Link to="/login">
+        <Button
+          minW="100%"
+          testId="common_register__button-login"
+          text="Já tenho conta"
+        />
+      </Link>
 
       {error && (
         <span data-testid="common_register__element-invalid_register">
@@ -92,7 +99,7 @@ function Register() {
       >
         <Stack spacing={ 8 } mx="auto" maxW="lg" py={ 12 } px={ 6 }>
           <Stack align="center">
-            <Heading fontSize="4xl">Registre-se no</Heading>
+            <Heading fontSize="4xl">Cadastre-se no</Heading>
             <Image w="100%" src={ tryBiritaLogo } />
           </Stack>
           <Box
