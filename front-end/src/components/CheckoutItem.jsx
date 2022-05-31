@@ -1,3 +1,4 @@
+import { Td, Tr } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import CustomerContext from '../context/CustomerContext';
@@ -21,42 +22,42 @@ function CheckoutItem({ cartItem, index }) {
   };
 
   return (
-    <tr>
-      <td
+    <Tr>
+      <Td
         data-testid={ `customer_checkout__element-order-table-item-number-${index}` }
       >
         {index + 1}
-      </td>
-      <td
+      </Td>
+      <Td
         data-testid={ `customer_checkout__element-order-table-name-${index}` }
       >
         {name}
-      </td>
-      <td
+      </Td>
+      <Td
         data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
       >
         {quantity}
-      </td>
-      <td
+      </Td>
+      <Td
         data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }
       >
         {parseFloat(price)
           .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-      </td>
-      <td
+      </Td>
+      <Td
         data-testid={ `customer_checkout__element-order-table-sub-total-${index}` }
       >
         {parseFloat(subtotal())
           .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-      </td>
-      <td>
+      </Td>
+      <Td isNumeric>
         <Button
           testId={ `customer_checkout__element-order-table-remove-${index}` }
           text="REMOVER"
           handleClick={ remove }
         />
-      </td>
-    </tr>
+      </Td>
+    </Tr>
   );
 }
 
