@@ -28,7 +28,7 @@ function OrderDetailsList() {
         </Tbody>
       </Table>
       <TotalPriceDisplay
-        testid={ `${user.role}_order_details__element-order-total-price` }
+        testId={ `${user.role}_order_details__element-order-total-price` }
         totalPrice={ currentOrder.totalPrice }
       />
     </Stack>

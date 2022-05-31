@@ -1,4 +1,4 @@
-import { Badge, HStack, Text } from '@chakra-ui/react';
+import { Text, HStack } from '@chakra-ui/react';
 import React, { useContext } from 'react';
 import GlobalContext from '../context/GlobalContext';
 import Button from './Button';
@@ -34,14 +34,16 @@ function OrderStatusBar() {
         { new Date(currentOrder.saleDate)
           .toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' }) }
       </Text>
-      <Badge
-        fontSize="0.9em"
+      <Text
+        background="Highlight"
+        px="2"
+        borderRadius="5"
         data-testid={
           `${user.role}_order_details__element-order-details-label-delivery-status`
         }
       >
         {currentOrder.status}
-      </Badge>
+      </Text>
       {user.role === 'customer' && (
         <Button
           testId="customer_order_details__button-delivery-check"
