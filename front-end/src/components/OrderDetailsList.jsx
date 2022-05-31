@@ -1,6 +1,8 @@
+import { Stack, Table, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
 import React, { useContext } from 'react';
 import GlobalContext from '../context/GlobalContext';
 import OrderDetailsItem from './OrderDetailsItem';
+import TotalPriceDisplay from './TotalPriceDisplay';
 
 function OrderDetailsList() {
   const { currentOrder, user } = useContext(GlobalContext);
@@ -8,32 +10,28 @@ function OrderDetailsList() {
   if (!currentOrder) return <div>Carregando</div>;
 
   return (
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Descrição</th>
-            <th>Quantidade</th>
-            <th>Valor Unitário</th>
-            <th>Sub-total</th>
-          </tr>
-        </thead>
-        <tbody>
+    <Stack>
+      <Table>
+        <Thead>
+          <Tr>
+            <Th>Item</Th>
+            <Th>Descrição</Th>
+            <Th isNumeric>Quantidade</Th>
+            <Th isNumeric>Valor Unitário</Th>
+            <Th isNumeric>Sub-total</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
           { currentOrder.products.map((product, index) => (
             <OrderDetailsItem key={ product.id } product={ product } index={ index } />
           ))}
-        </tbody>
-      </table>
-      <div>
-        <span
-          data-testid={ `${user.role}_order_details__element-order-total-price` }
-        >
-          {parseFloat(currentOrder.totalPrice)
-            .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-        </span>
-      </div>
-    </div>
+        </Tbody>
+      </Table>
+      <TotalPriceDisplay
+        testid={ `${user.role}_order_details__element-order-total-price` }
+        totalPrice={ currentOrder.totalPrice }
+      />
+    </Stack>
   );
 }
 
