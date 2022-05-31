@@ -15,14 +15,14 @@
   text-decoration: none;
 }
 
-.linkNavBar:hover {
+.linkNavBarActive {
   background-color: hsl(158, 61%, 47%);
   color: black;
 }
 
-.linkNavBar:active {
-  background-color: hsl(158, 61%, 47%);
-  color: black;
+.linkNavBar:hover {
+  background-color: hsl(166, 95%, 20%);
+  color: white;
 }
 
 .navBarUserName {

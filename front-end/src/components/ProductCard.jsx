@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+import { AddIcon, MinusIcon } from '@chakra-ui/icons';
+import { Box, Image, Flex } from '@chakra-ui/react';
 import React, { useContext } from 'react';
 import CustomerContext from '../context/CustomerContext';
 import Button from './Button';
@@ -34,28 +36,38 @@ function ProductCard({ product, quantity }) {
   };
 
   return (
-    <div>
-      <span
-        data-testid={ `customer_products__element-card-price-${product.id}` }
-      >
-        { parseFloat(product.price)
-          .toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }
-      </span>
-      <img
-        width="200px"
+    <Box
+      maxW="sm"
+      borderWidth="1px"
+      borderRadius="lg"
+      align="center"
+      justify="center"
+      p={ 2 }
+    >
+      <Image
+        borderRadius="full"
         data-testid={ `customer_products__img-card-bg-image-${product.id}` }
         src={ product.urlImage }
         alt={ product.name }
       />
-      <div>
+      <Flex direction="column" alignItems="center">
         <span
           data-testid={ `customer_products__element-card-title-${product.id}` }
         >
           { product.name }
         </span>
-        <div>
+        <span>
+          { 'R$ ' }
+          <span
+            data-testid={ `customer_products__element-card-price-${product.id}` }
+          >
+            { parseFloat(product.price)
+              .toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }
+          </span>
+        </span>
+        <Flex alignItems="center">
           <Button
-            text="-"
+            icon={ <MinusIcon /> }
             handleClick={ subItem }
             disabled={ quantity <= 0 }
             testId={ `customer_products__button-card-rm-item-${product.id}` }
@@ -66,15 +78,17 @@ function ProductCard({ product, quantity }) {
             value={ quantity }
             handleChange={ handleCountManualChange }
             testId={ `customer_products__input-card-quantity-${product.id}` }
+            width={ 20 }
+            textAlign="center"
           />
           <Button
-            text="+"
+            icon={ <AddIcon /> }
             handleClick={ addItem }
             testId={ `customer_products__button-card-add-item-${product.id}` }
           />
-        </div>
-      </div>
-    </div>
+        </Flex>
+      </Flex>
+    </Box>
   );
 }
 

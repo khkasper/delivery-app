@@ -1,5 +1,5 @@
+import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import React, { useContext } from 'react';
-// import { TableContainer, Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
 import AdminContext from '../context/AdminContext';
 import Button from './Button';
 
@@ -8,42 +8,42 @@ function UserList() {
 
   return (
     <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>tipo</th>
-            <th>Excluir</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Table p="5">
+        <Thead>
+          <Tr>
+            <Th>Item</Th>
+            <Th>Nome</Th>
+            <Th>Email</Th>
+            <Th>tipo</Th>
+            <Th>Excluir</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
           { users.map(({ id, name, email, role }, index) => (
-            <tr key={ id }>
-              <td data-testid={ `admin_manage__element-user-table-item-number-${index}` }>
+            <Tr key={ id }>
+              <Td data-testid={ `admin_manage__element-user-table-item-number-${index}` }>
                 { index }
-              </td>
-              <td data-testid={ `admin_manage__element-user-table-name-${index}` }>
+              </Td>
+              <Td data-testid={ `admin_manage__element-user-table-name-${index}` }>
                 { name }
-              </td>
-              <td data-testid={ `admin_manage__element-user-table-email-${index}` }>
+              </Td>
+              <Td data-testid={ `admin_manage__element-user-table-email-${index}` }>
                 { email }
-              </td>
-              <td data-testid={ `admin_manage__element-user-table-role-${index}` }>
+              </Td>
+              <Td data-testid={ `admin_manage__element-user-table-role-${index}` }>
                 { role }
-              </td>
-              <td>
+              </Td>
+              <Td>
                 <Button
                   text="Excluir"
                   testId={ `admin_manage__element-user-table-remove-${index}` }
                   handleClick={ () => removeUser(id) }
                 />
-              </td>
-            </tr>
+              </Td>
+            </Tr>
           ))}
-        </tbody>
-      </table>
+        </Tbody>
+      </Table>
     </div>
   );
 }

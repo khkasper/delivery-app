@@ -1,3 +1,4 @@
+import { Text, HStack } from '@chakra-ui/react';
 import React, { useContext } from 'react';
 import GlobalContext from '../context/GlobalContext';
 import Button from './Button';
@@ -8,35 +9,41 @@ function OrderStatusBar() {
   if (!currentOrder) return <div>Carregando</div>;
 
   return (
-    <div>
-      <span
+    <HStack justifyContent="space-between" px="5" py="3">
+      <Text
+        fontWeight="bold"
         data-testid={ `${user.role}_order_details__element-order-details-label-order-id` }
       >
-        PEDIDO
+        PEDIDO&nbsp;
         {currentOrder.id}
-      </span>
-      <span
-        data-testid={
-          `${user.role}_order_details__element-order-details-label-seller-name`
-        }
-      >
-        {currentOrder.seller.name}
-      </span>
-      <span
+      </Text>
+      { user.role === 'customer' && (
+        <Text
+          data-testid={
+            `${user.role}_order_details__element-order-details-label-seller-name`
+          }
+        >
+          {currentOrder.seller.name}
+        </Text>
+      ) }
+      <Text
         data-testid={
           `${user.role}_order_details__element-order-details-label-order-date`
         }
       >
         { new Date(currentOrder.saleDate)
           .toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' }) }
-      </span>
-      <span
+      </Text>
+      <Text
+        background="Highlight"
+        px="2"
+        borderRadius="5"
         data-testid={
           `${user.role}_order_details__element-order-details-label-delivery-status`
         }
       >
         {currentOrder.status}
-      </span>
+      </Text>
       {user.role === 'customer' && (
         <Button
           testId="customer_order_details__button-delivery-check"
@@ -61,7 +68,7 @@ function OrderStatusBar() {
           />
         </>
       )}
-    </div>
+    </HStack>
   );
 }
 

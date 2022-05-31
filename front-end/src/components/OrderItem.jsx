@@ -1,29 +1,48 @@
+import { SimpleGrid, Box } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
+
+const SELLER_COLUMNS = 5;
 
 function OrderItem({ testIds, orderId, status, date,
   price, address, addressNumber, role }) {
   return (
     <Link to={ `/${role}/orders/${orderId}` }>
-      <div>
-        <span>Pedido</span>
-        <span data-testid={ `${testIds.orderId}${orderId}` }>{ orderId }</span>
-        <span data-testid={ `${testIds.status}${orderId}` }>{ status }</span>
-        <span data-testid={ `${testIds.date}${orderId}` }>
-          { new Date(date)
-            .toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' }) }
-        </span>
-        <span data-testid={ `${testIds.price}${orderId}` }>
-          {parseFloat(price)
-            .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-        </span>
+      <SimpleGrid
+        columns={ role === 'seller' ? SELLER_COLUMNS : SELLER_COLUMNS - 1 }
+      >
+        <Box>
+          <span>Pedido&nbsp;</span>
+          <span data-testid={ `${testIds.orderId}${orderId}` }>{ orderId }</span>
+        </Box>
+        <Box>
+          <span data-testid={ `${testIds.status}${orderId}` }>{ status }</span>
+
+        </Box>
+        <Box>
+          <span data-testid={ `${testIds.date}${orderId}` }>
+            { new Date(date)
+              .toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' }) }
+          </span>
+
+        </Box>
+        <Box>
+          <span data-testid={ `${testIds.price}${orderId}` }>
+            {parseFloat(price)
+              .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+          </span>
+
+        </Box>
         { role === 'seller'
           && (
-            <span data-testid={ `${testIds.address}${orderId}` }>
-              {`${address}, ${addressNumber}`}
-            </span>)}
-      </div>
+            <Box>
+              <span data-testid={ `${testIds.address}${orderId}` }>
+                {`${address}, ${addressNumber}`}
+              </span>
+            </Box>
+          )}
+      </SimpleGrid>
     </Link>
   );
 }
