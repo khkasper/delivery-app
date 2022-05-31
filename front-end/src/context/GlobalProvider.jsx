@@ -101,7 +101,7 @@ function GlobalProvider({ children }) {
     }
   }, []);
 
-  const getCurrentOrder = async (orderId) => {
+  const getCurrentOrder = useCallback(async (orderId) => {
     try {
       const currentUser = JSON.parse(localStorage.getItem('user'));
       const result = await API.get(`/${currentUser.role}/orders/${orderId}`, {
@@ -113,7 +113,7 @@ function GlobalProvider({ children }) {
     } catch (err) {
       setError(err);
     }
-  };
+  }, []);
 
   const updateOrder = async (orderId, newStatus) => {
     try {

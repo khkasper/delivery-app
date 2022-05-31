@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Stack } from '@chakra-ui/react';
 import GlobalContext from '../context/GlobalContext';
 import OrderCustomerDetails from '../components/OrderCustomerDetails';
 import OrderSellerDetails from '../components/OrderSellerDetails';
@@ -15,15 +16,15 @@ function OrderDetails() {
       setLoading(false);
     };
     loadCurrentOrder();
-  }, []);
+  }, [getCurrentOrder, id, setLoading]);
 
   if (loading) return <div>Carregando</div>;
 
   return (
-    <div>
+    <Stack>
       { user.role === 'customer' && <OrderCustomerDetails /> }
       { user.role === 'seller' && <OrderSellerDetails /> }
-    </div>
+    </Stack>
   );
 }
 
