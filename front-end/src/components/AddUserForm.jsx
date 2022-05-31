@@ -30,7 +30,7 @@ function AddUserForm() {
     setDisabled(result);
   }, [name, email, password]);
   return (
-    <HStack>
+    <HStack p="5">
       <FormControl>
         <FormLabel>Nome</FormLabel>
         <Input
