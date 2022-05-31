@@ -73,7 +73,7 @@ function GlobalProvider({ children }) {
     setProducts(data);
   };
 
-  const getOrders = async () => {
+  const getOrders = useCallback(async () => {
     try {
       const currentUser = JSON.parse(localStorage.getItem('user'));
       const result = await API.get(`/${currentUser.role}/orders`, {
@@ -85,7 +85,7 @@ function GlobalProvider({ children }) {
     } catch (err) {
       setError(err);
     }
-  };
+  }, []);
 
   const getSellers = useCallback(async () => {
     try {

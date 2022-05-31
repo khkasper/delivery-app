@@ -27,7 +27,7 @@ function Orders() {
       setLoading(false);
     };
     loadOrders();
-  }, []);
+  }, [getOrders, setLoading]);
 
   if (loading) return <div>Carregando</div>;
 
