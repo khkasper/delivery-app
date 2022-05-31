@@ -1,9 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import {
+  Box, Flex, FormControl, FormLabel, Heading, Image, Stack,
+} from '@chakra-ui/react';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import { registerValidate } from '../utils/validation';
 import GlobalContext from '../context/GlobalContext';
+import tryBiritaLogo from '../images/trybirita-logo.png';
 
 function Register() {
   const [name, setName] = useState('');
@@ -19,10 +23,9 @@ function Register() {
 
   if (user) return <Navigate to={ HOMES[user.role] } />;
 
-  return (
-    <main className="containerLoginRegister">
-      <h1>Register</h1>
-      <span>Nome</span>
+  const renderNameInput = () => (
+    <FormControl id="name">
+      <FormLabel>Nome</FormLabel>
       <Input
         testId="common_register__input-name"
         type="text"
@@ -30,7 +33,11 @@ function Register() {
         value={ name }
         handleChange={ (e) => setName(e.target.value) }
       />
-      <span>Email</span>
+    </FormControl>
+  );
+  const renderEmailInput = () => (
+    <FormControl id="email">
+      <FormLabel>Email</FormLabel>
       <Input
         testId="common_register__input-email"
         type="email"
@@ -38,7 +45,12 @@ function Register() {
         value={ email }
         handleChange={ (e) => setEmail(e.target.value) }
       />
-      <span>Senha</span>
+    </FormControl>
+  );
+
+  const renderPasswordInput = () => (
+    <FormControl id="password">
+      <FormLabel>Senha</FormLabel>
       <Input
         testId="common_register__input-password"
         type="password"
@@ -46,18 +58,59 @@ function Register() {
         value={ password }
         handleChange={ (e) => setPassword(e.target.value) }
       />
+    </FormControl>
+  );
+
+  const renderAnotherFields = () => (
+    <Stack spacing={ 10 }>
       <Button
+        bg="blue.400"
+        color="white"
         testId="common_register__button-register"
         text="CADASTRAR"
         disabled={ disabled }
         handleClick={ () => registerUser({ name, email, password }) }
+        _hover={ {
+          bg: 'blue.500',
+        } }
       />
-      { error
-        && (
-          <span data-testid="common_register__element-invalid_register">
-            {error.message}
-          </span>
-        )}
+
+      {error && (
+        <span data-testid="common_register__element-invalid_register">
+          {error.message}
+        </span>
+      )}
+    </Stack>
+  );
+  return (
+    <main className="containerLoginRegister">
+      <Flex
+        minH="100vh"
+        align="center"
+        justify="center"
+        bg="gray.50"
+      >
+        <Stack spacing={ 8 } mx="auto" maxW="lg" py={ 12 } px={ 6 }>
+          <Stack align="center">
+            <Heading fontSize="4xl">Registre-se no</Heading>
+            <Image w="100%" src={ tryBiritaLogo } />
+          </Stack>
+          <Box
+            rounded="lg"
+            bg="white"
+            boxShadow="lg"
+            p={ 8 }
+          >
+            <Stack spacing={ 4 }>
+              { renderNameInput() }
+              { renderEmailInput() }
+              { renderPasswordInput() }
+              { renderAnotherFields() }
+            </Stack>
+          </Box>
+        </Stack>
+      </Flex>
+
     </main>
   );
 }
