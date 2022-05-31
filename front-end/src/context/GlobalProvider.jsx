@@ -1,8 +1,12 @@
 import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import GlobalContext from './GlobalContext';
+
+const API = axios.create({
+  baseURL: 'http://localhost:3001',
+});
 
 function GlobalProvider({ children }) {
   const [user, setUser] = useState();
@@ -13,9 +17,6 @@ function GlobalProvider({ children }) {
   const [sellers, setSellers] = useState([]);
   const [currentOrder, setCurrentOrder] = useState();
   const navigate = useNavigate();
-  const API = axios.create({
-    baseURL: 'http://localhost:3001',
-  });
 
   const HOMES = {
     administrator: '/admin/manage',
@@ -86,7 +87,7 @@ function GlobalProvider({ children }) {
     }
   };
 
-  const getSellers = async () => {
+  const getSellers = useCallback(async () => {
     try {
       const currentUser = JSON.parse(localStorage.getItem('user'));
       const result = await API.get('/seller/', {
@@ -98,7 +99,7 @@ function GlobalProvider({ children }) {
     } catch (err) {
       setError(err);
     }
-  };
+  }, []);
 
   const getCurrentOrder = async (orderId) => {
     try {

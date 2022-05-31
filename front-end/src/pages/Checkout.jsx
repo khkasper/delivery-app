@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { Divider, Heading } from '@chakra-ui/react';
 import NavBar from '../components/NavBar';
 import NavItem from '../components/NavItem';
 import CheckoutDetails from '../components/CheckoutDetails';
@@ -16,7 +17,7 @@ function Checkout() {
       setLoading(false);
     };
     loadSellers();
-  }, []);
+  }, [getSellers, setLoading]);
 
   if (loading) return <div>Carregando</div>;
 
@@ -34,7 +35,10 @@ function Checkout() {
           testId="customer_products__element-navbar-link-orders"
         />
       </NavBar>
+      <Heading p="5">Checkout</Heading>
+      <Divider />
       <CheckoutList />
+      <Divider />
       <CheckoutDetails />
     </CustomerProvider>
   );
