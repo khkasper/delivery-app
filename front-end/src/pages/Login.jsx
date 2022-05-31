@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Navigate, Link } from 'react-router-dom';
 import {
-  Flex, Box, FormControl, FormLabel, Stack, Heading,
+  Flex, Box, FormControl, FormLabel, Stack, Heading, Image,
 } from '@chakra-ui/react';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import GlobalContext from '../context/GlobalContext';
 import { loginValidate } from '../utils/validation';
+
+import tryBiritaLogo from '../images/trybirita-logo.png';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -63,6 +65,7 @@ function Login() {
       />
       <Link to="/register">
         <Button
+          minW="100%"
           testId="common_login__button-register"
           text="Ainda não tenho conta"
         />
@@ -83,7 +86,8 @@ function Login() {
       >
         <Stack spacing={ 8 } mx="auto" maxW="lg" py={ 12 } px={ 6 }>
           <Stack align="center">
-            <Heading fontSize="4xl">Entre na sua conta</Heading>
+            <Heading fontSize="4xl">Bem-vindo(a) ao</Heading>
+            <Image w="100%" src={ tryBiritaLogo } />
           </Stack>
           <Box
             rounded="lg"
