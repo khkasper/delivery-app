@@ -17,13 +17,15 @@ function OrderStatusBar() {
         PEDIDO&nbsp;
         {currentOrder.id}
       </Text>
-      <Text
-        data-testid={
-          `${user.role}_order_details__element-order-details-label-seller-name`
-        }
-      >
-        {currentOrder.seller.name}
-      </Text>
+      { user.role === 'customer' && (
+        <Text
+          data-testid={
+            `${user.role}_order_details__element-order-details-label-seller-name`
+          }
+        >
+          {currentOrder.seller.name}
+        </Text>
+      ) }
       <Text
         data-testid={
           `${user.role}_order_details__element-order-details-label-order-date`
