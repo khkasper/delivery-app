@@ -21,8 +21,8 @@ const update = rescue(async (req, res) => {
 });
 
 const remove = rescue(async (req, res) => {
-  const { body, userInfo } = req;
-  const user = await AdminService.remove(body, userInfo);
+  const { userInfo, params: { id } } = req;
+  const user = await AdminService.remove(id, userInfo);
   return res.status(NO_CONTENT).json(user);
 });
 

@@ -8,6 +8,12 @@ const API = axios.create({
   baseURL: 'http://localhost:3001',
 });
 
+const HOMES = {
+  administrator: '/admin/manage',
+  customer: '/customer/products',
+  seller: '/seller/orders',
+};
+
 function GlobalProvider({ children }) {
   const [user, setUser] = useState();
   const [error, setError] = useState(null);
@@ -18,13 +24,7 @@ function GlobalProvider({ children }) {
   const [currentOrder, setCurrentOrder] = useState();
   const navigate = useNavigate();
 
-  const HOMES = {
-    administrator: '/admin/manage',
-    customer: '/customer/products',
-    seller: '/seller/orders',
-  };
-
-  const loginUser = async ({ email, password }) => {
+  const loginUser = useCallback(async ({ email, password }) => {
     try {
       setLoading(true);
       const { data } = await API.post('/login', { email, password });
@@ -35,43 +35,30 @@ function GlobalProvider({ children }) {
     } catch (err) {
       setError(err.response.data);
     }
-  };
+  }, [navigate]);
 
-  const registerUser = async ({ name, email, password }) => {
+  const registerUser = useCallback(async ({ name, email, password }) => {
     try {
       setLoading(true);
       const { data } = await API.post('/register', { name, email, password });
       setUser(data);
       localStorage.setItem('user', JSON.stringify(data));
       setLoading(false);
-      navigate(HOMES[data.role]);
+      navigate(HOMES.customer);
     } catch (err) {
       setError(err.response.data);
     }
-  };
+  }, [navigate]);
 
-  const registerUserAdmin = async ({ name, email, password, role }) => {
-    try {
-      await API.post('/admin/manage', { name, email, password, role }, {
-        headers: {
-          Authorization: user.token,
-        },
-      });
-      navigate(HOMES[user.role]);
-    } catch (err) {
-      setError(err.response.data);
-    }
-  };
-
-  const getProducts = async () => {
+  const getProducts = useCallback(async () => {
     const currentUser = JSON.parse(localStorage.getItem('user'));
-    const { data } = await API.get('/customer/products', {
+    const { data } = await API.get(HOMES.customer, {
       headers: {
         Authorization: currentUser.token,
       },
     });
     setProducts(data);
-  };
+  }, []);
 
   const getOrders = useCallback(async () => {
     try {
@@ -115,7 +102,7 @@ function GlobalProvider({ children }) {
     }
   }, []);
 
-  const updateOrder = async (orderId, newStatus) => {
+  const updateOrder = useCallback(async (orderId, newStatus) => {
     try {
       const currentUser = JSON.parse(localStorage.getItem('user'));
       const result = await API.patch(`/${currentUser.role}/orders/${orderId}/update`,
@@ -129,7 +116,7 @@ function GlobalProvider({ children }) {
     } catch (err) {
       setError(err);
     }
-  };
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -156,11 +143,11 @@ function GlobalProvider({ children }) {
     HOMES,
     products,
     loading,
-    registerUserAdmin,
     getProducts,
     getOrders,
     orders,
     setLoading,
+    setError,
     sellers,
     getSellers,
     getCurrentOrder,

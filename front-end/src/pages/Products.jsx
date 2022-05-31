@@ -16,7 +16,7 @@ function Products() {
     };
     loadProducts();
     setLoading(false);
-  }, []);
+  }, [getProducts, setLoading]);
 
   if (loading) return <div>Carregando</div>;
 

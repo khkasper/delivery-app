@@ -6,9 +6,11 @@ import Button from './Button';
 
 import GlobalContext from '../context/GlobalContext';
 import { registerValidate } from '../utils/validation';
+import AdminContext from '../context/AdminContext';
 
 function AddUserForm() {
-  const { registerUserAdmin, error } = useContext(GlobalContext);
+  const { error } = useContext(GlobalContext);
+  const { registerUserAdmin } = useContext(AdminContext);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
