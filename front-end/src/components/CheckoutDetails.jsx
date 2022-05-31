@@ -32,6 +32,7 @@ function CheckoutDetails() {
       <HStack px="5" py="3">
         <Select
           id="customer_checkout__select-seller"
+          data-testid="customer_checkout__select-seller"
           name="seller"
           value={ sellerSelected }
           width="50%"
