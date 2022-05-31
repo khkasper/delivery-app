@@ -1,3 +1,4 @@
+import { Select, HStack } from '@chakra-ui/react';
 import React, { useContext, useState, useEffect } from 'react';
 import CustomerContext from '../context/CustomerContext';
 import GlobalContext from '../context/GlobalContext';
@@ -26,21 +27,23 @@ function CheckoutDetails() {
   }, [sellers]);
 
   return (
-    <div>
-      <select
-        data-testid="customer_checkout__select-seller"
+    <HStack p="2">
+      <Select
+        id="customer_checkout__select-seller"
         name="seller"
         value={ sellerSelected }
+        width="50%"
         onChange={ (e) => setSellerSelected(e.target.value) }
       >
         {sellers.map((seller, index) => (
           <option key={ index } value={ seller.id }>{seller.name}</option>
         ))}
-      </select>
+      </Select>
       <Input
         testId="customer_checkout__input-address"
         type="text"
         name="address"
+        placeholder="Endereço"
         value={ address }
         handleChange={ (e) => setAddress(e.target.value) }
       />
@@ -48,6 +51,8 @@ function CheckoutDetails() {
         testId="customer_checkout__input-addressNumber"
         type="text"
         name="addressNumber"
+        placeholder="Número"
+        width="30%"
         value={ addressNumber }
         handleChange={ (e) => setAddressNumber(e.target.value) }
       />
@@ -55,8 +60,9 @@ function CheckoutDetails() {
         testId="customer_checkout__button-submit-order"
         text="FINALIZAR PEDIDO"
         handleClick={ submitOrder }
+        minW="160px"
       />
-    </div>
+    </HStack>
   );
 }
 

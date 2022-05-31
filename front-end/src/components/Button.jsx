@@ -2,9 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Button as ChakraButton } from '@chakra-ui/react';
 
-function Button(
-  { testId, text, handleClick, disabled, className, value, testId2, icon, pos = {} },
-) {
+function Button({
+  testId, text, handleClick, disabled, className, value,
+  testId2, icon, pos = {}, minW,
+}) {
   return (
     <ChakraButton
       colorScheme="teal"
@@ -16,6 +17,7 @@ function Button(
       pos={ pos.name }
       bottom={ pos.bottom }
       right={ pos.right }
+      minW={ minW }
     >
       { icon }
       { text }
@@ -33,6 +35,7 @@ Button.defaultProps = {
   text: undefined,
   icon: undefined,
   pos: undefined,
+  minW: undefined,
 };
 
 Button.propTypes = {
@@ -49,6 +52,7 @@ Button.propTypes = {
     bottom: PropTypes.number,
     right: PropTypes.number,
   }),
+  minW: PropTypes.string,
 };
 
 export default Button;
