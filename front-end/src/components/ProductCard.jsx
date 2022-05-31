@@ -79,6 +79,7 @@ function ProductCard({ product, quantity }) {
             handleChange={ handleCountManualChange }
             testId={ `customer_products__input-card-quantity-${product.id}` }
             width={ 20 }
+            textAlign="center"
           />
           <Button
             icon={ <AddIcon /> }

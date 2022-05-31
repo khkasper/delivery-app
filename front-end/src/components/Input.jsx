@@ -2,7 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Input as ChakraInput } from '@chakra-ui/react';
 
-function Input({ testId, type, name, value, handleChange, width, placeholder }) {
+function Input({
+  testId, type, name, value, handleChange, width, placeholder, textAlign,
+}) {
   return (
     <ChakraInput
       data-testid={ testId }
@@ -12,7 +14,7 @@ function Input({ testId, type, name, value, handleChange, width, placeholder }) 
       onChange={ handleChange }
       width={ width }
       placeholder={ placeholder }
-      textAlign="center"
+      textAlign={ textAlign }
       // width="auto"
     />
   );
@@ -21,6 +23,7 @@ function Input({ testId, type, name, value, handleChange, width, placeholder }) 
 Input.defaultProps = {
   width: undefined,
   placeholder: undefined,
+  textAlign: undefined,
 };
 
 Input.propTypes = {
@@ -29,8 +32,9 @@ Input.propTypes = {
   testId: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  width: PropTypes.number,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   placeholder: PropTypes.string,
+  textAlign: PropTypes.string,
 };
 
 export default Input;
