@@ -24,7 +24,7 @@ function TotalPriceDisplay({ totalPrice, testId }) {
 }
 
 TotalPriceDisplay.propTypes = {
-  totalPrice: PropTypes.number.isRequired,
+  totalPrice: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   testId: PropTypes.string.isRequired,
 };
 
