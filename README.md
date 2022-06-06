@@ -58,6 +58,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://www.linkedin.com/in/henrique-junqueira-braga/"><img src="https://avatars.githubusercontent.com/u/84282335?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Henrique Braga</b></sub></a><br /><a href="https://github.com/jonathan-f-silva/project-trybirita/commits?author=henriquejbraga" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.linkedin.com/in/benedettigabriel"><img src="https://avatars.githubusercontent.com/u/85767905?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Gabriel Elias Benedetti</b></sub></a><br /><a href="https://github.com/jonathan-f-silva/project-trybirita/commits?author=benedetti14" title="Code">💻</a></td>
   </tr>
 </table>
 
