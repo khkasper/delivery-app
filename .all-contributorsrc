@@ -6,10 +6,17 @@
   "commit": false,
   "contributors": [
     {
+      "login": "henriquejbraga",
+      "name": "Henrique Braga",
+      "avatar_url": "https://avatars.githubusercontent.com/u/84282335?v=4",
+      "profile": "https://www.linkedin.com/in/henrique-junqueira-braga/",
+    },
+    {
       "login": "benedetti14",
       "name": "Gabriel Elias Benedetti",
       "avatar_url": "https://avatars.githubusercontent.com/u/85767905?v=4",
       "profile": "https://www.linkedin.com/in/benedettigabriel",
+
       "contributions": [
         "code"
       ]
