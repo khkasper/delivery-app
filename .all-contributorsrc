@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "benedetti14",
+      "name": "Gabriel Elias Benedetti",
+      "avatar_url": "https://avatars.githubusercontent.com/u/85767905?v=4",
+      "profile": "https://www.linkedin.com/in/benedettigabriel",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "project-trybirita",
+  "projectOwner": "jonathan-f-silva",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
