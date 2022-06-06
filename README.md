@@ -1,6 +1,6 @@
 # Projeto TryBirita
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Projeto full stack feito em grupo durante o curso da Trybe aonde treinamos todas as soft e hard skills aprendidas até o momento.
@@ -61,6 +61,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://br.linkedin.com/in/kristiano-kasper"><img src="https://avatars.githubusercontent.com/u/85760820?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kristiano Kasper</b></sub></a><br /><a href="https://github.com/jonathan-f-silva/project-trybirita/commits?author=khkasper" title="Code">💻</a></td>
     <td align="center"><a href="https://www.linkedin.com/in/henrique-junqueira-braga/"><img src="https://avatars.githubusercontent.com/u/84282335?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Henrique Braga</b></sub></a><br /><a href="https://github.com/jonathan-f-silva/project-trybirita/commits?author=henriquejbraga" title="Code">💻</a></td>
     <td align="center"><a href="https://www.linkedin.com/in/benedettigabriel"><img src="https://avatars.githubusercontent.com/u/85767905?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Gabriel Elias Benedetti</b></sub></a><br /><a href="https://github.com/jonathan-f-silva/project-trybirita/commits?author=benedetti14" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.linkedin.com/in/jonathan-f-silva/"><img src="https://avatars.githubusercontent.com/u/85591570?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jonathan Ferreira</b></sub></a><br /><a href="https://github.com/jonathan-f-silva/project-trybirita/commits?author=jonathan-f-silva" title="Code">💻</a></td>
   </tr>
 </table>
 
