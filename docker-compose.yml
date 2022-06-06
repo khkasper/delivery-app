@@ -1,0 +1,48 @@
+services:
+  front-end:
+    build: ./front-end
+    ports:
+      - 3000:3000
+    volumes:
+      - ./front-end/src:/app/src
+    depends_on:
+      back-end:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "lsof", "-t", "-i:3000"]
+      timeout: 10s
+      retries: 5
+  back-end:
+    build: ./back-end
+    ports:
+      - 3001:3001
+    volumes:
+      - ./back-end/src:/app/src
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - PORT=3001
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - MYSQL_HOST=db
+      - MYSQL_DB_NAME=delivery-app
+      - MYSQL_PORT=3306
+    healthcheck:
+      test: ["CMD", "lsof", "-t", "-i:3001"]
+      timeout: 10s
+      retries: 5
+  db:
+    image: mysql:8.0.21
+    container_name: db
+    ports:
+      - 3002:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+    restart: 'always'
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 5
+    cap_add:
+      - SYS_NICE # Deve omitir alertas menores
