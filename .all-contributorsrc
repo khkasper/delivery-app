@@ -6,6 +6,15 @@
   "commit": false,
   "contributors": [
     {
+      "login": "natferlima",
+      "name": "Natália Ferreira Lima",
+      "avatar_url": "https://avatars.githubusercontent.com/u/83908611?v=4",
+      "profile": "https://github.com/natferlima",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
       "login": "khkasper",
       "name": "Kristiano Kasper",
       "avatar_url": "https://avatars.githubusercontent.com/u/85760820?v=4",
