@@ -3,7 +3,7 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-Projeto full stack feito em grupo durante o curso da Trybe aonde treinamos todas as soft e hard skills aprendidas até o momento.
+Projeto full stack feito em grupo durante o curso da Trybe onde treinamos todas as soft e hard skills aprendidas até o momento.
 
 O projeto consiste de uma aplicação de cadastro de pedidos de bebidas, tendo 3 perfis de usuário e suas respectivas telas:
 
